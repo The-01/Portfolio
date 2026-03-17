@@ -1,0 +1,2538 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Atif Ahmad — Senior Microsoft Dynamics CRM Developer</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700;900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+		<style>
+			:root {
+				--navy: #06101f;
+				--navy2: #0c1a30;
+				--navy3: #112240;
+				--navy4: #172d4d;
+				--gold: #c8952a;
+				--gold2: #e5b84a;
+				--gold3: #f7d980;
+				--gold-pale: rgba(200, 149, 42, 0.08);
+				--white: #ffffff;
+				--muted: #7a8fa8;
+				--border: rgba(200, 149, 42, 0.18);
+			}
+			*,
+			*::before,
+			*::after {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				font-family: "DM Sans", sans-serif;
+				background: var(--navy);
+				color: var(--white);
+				overflow-x: hidden;
+				cursor: none;
+			}
+
+			/* ── CUSTOM CURSOR ── */
+			.cursor {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: var(--gold2);
+				position: fixed;
+				z-index: 9999;
+				pointer-events: none;
+				transform: translate(-50%, -50%);
+				transition:
+					transform 0.08s ease,
+					width 0.25s,
+					height 0.25s,
+					background 0.25s;
+				mix-blend-mode: screen;
+			}
+			.cursor-ring {
+				width: 38px;
+				height: 38px;
+				border-radius: 50%;
+				border: 1.5px solid rgba(200, 149, 42, 0.5);
+				position: fixed;
+				z-index: 9998;
+				pointer-events: none;
+				transform: translate(-50%, -50%);
+				transition:
+					transform 0.18s ease,
+					width 0.3s,
+					height 0.3s,
+					border-color 0.3s;
+			}
+			body:hover .cursor {
+				opacity: 1;
+			}
+			a:hover ~ .cursor,
+			button:hover ~ .cursor {
+				width: 16px;
+				height: 16px;
+				background: var(--gold3);
+			}
+
+			/* ── NAVBAR ── */
+			nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 1000;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 5%;
+				height: 72px;
+				background: rgba(6, 16, 31, 0.92);
+				backdrop-filter: blur(20px);
+				border-bottom: 1px solid var(--border);
+				transition: all 0.4s;
+			}
+			.nav-logo-wrap {
+				display: flex;
+				align-items: center;
+				gap: 13px;
+				text-decoration: none;
+			}
+			.nav-monogram {
+				width: 42px;
+				height: 42px;
+				border-radius: 8px;
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: "Cinzel", serif;
+				font-size: 1.1rem;
+				font-weight: 900;
+				color: var(--navy);
+				flex-shrink: 0;
+				box-shadow:
+					0 0 0 2px rgba(200, 149, 42, 0.3),
+					0 0 16px rgba(200, 149, 42, 0.2);
+			}
+			.nav-name {
+				font-family: "Cinzel", serif;
+				font-size: 0.95rem;
+				font-weight: 700;
+				color: var(--white);
+				line-height: 1.2;
+				letter-spacing: 0.5px;
+			}
+			.nav-name span {
+				color: var(--gold);
+				font-size: 0.65rem;
+				display: block;
+				font-family: "DM Sans", sans-serif;
+				font-weight: 400;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+			}
+			.nav-links {
+				display: flex;
+				gap: 0.2rem;
+				list-style: none;
+				align-items: center;
+			}
+			.nav-links a {
+				color: rgba(255, 255, 255, 0.72);
+				text-decoration: none;
+				font-size: 0.84rem;
+				font-weight: 500;
+				padding: 6px 13px;
+				border-radius: 6px;
+				transition: all 0.3s;
+			}
+			.nav-links a:hover {
+				color: var(--gold2);
+				background: var(--gold-pale);
+			}
+			.nav-cta {
+				background: linear-gradient(135deg, var(--gold), var(--gold2)) !important;
+				color: var(--navy) !important;
+				font-weight: 700 !important;
+				padding: 8px 20px !important;
+				border-radius: 6px;
+				box-shadow: 0 4px 14px rgba(200, 149, 42, 0.35);
+			}
+			.nav-cta:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 6px 20px rgba(200, 149, 42, 0.5) !important;
+			}
+			.hamburger {
+				display: none;
+				flex-direction: column;
+				gap: 5px;
+				cursor: pointer;
+			}
+			.hamburger span {
+				width: 24px;
+				height: 2px;
+				background: var(--gold);
+				border-radius: 2px;
+				transition: 0.3s;
+			}
+			.mobile-menu {
+				display: none;
+				position: fixed;
+				top: 72px;
+				left: 0;
+				right: 0;
+				background: var(--navy2);
+				padding: 1.5rem 5%;
+				z-index: 999;
+				border-bottom: 1px solid var(--border);
+			}
+			.mobile-menu.open {
+				display: block;
+			}
+			.mobile-menu ul {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+			.mobile-menu a {
+				color: rgba(255, 255, 255, 0.8);
+				text-decoration: none;
+				font-size: 1rem;
+				font-weight: 500;
+			}
+			.mobile-menu a:hover {
+				color: var(--gold);
+			}
+
+			/* ── HERO ── */
+			#home {
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				padding: 100px 5% 0;
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* background grid */
+			.hero-grid {
+				position: absolute;
+				inset: 0;
+				z-index: 0;
+				pointer-events: none;
+				background-image: linear-gradient(rgba(200, 149, 42, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(200, 149, 42, 0.035) 1px, transparent 1px);
+				background-size: 64px 64px;
+			}
+			.hero-glow {
+				position: absolute;
+				left: -200px;
+				top: -200px;
+				width: 700px;
+				height: 700px;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(200, 149, 42, 0.07) 0%, transparent 65%);
+				pointer-events: none;
+				z-index: 0;
+			}
+			.hero-glow2 {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				width: 500px;
+				height: 500px;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(200, 149, 42, 0.05) 0%, transparent 65%);
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			/* left content */
+			.hero-left {
+				position: relative;
+				z-index: 2;
+				flex: 1;
+				max-width: 580px;
+				padding-bottom: 80px;
+			}
+			.hero-status-pill {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				background: rgba(200, 149, 42, 0.1);
+				border: 1px solid rgba(200, 149, 42, 0.35);
+				padding: 7px 18px;
+				border-radius: 50px;
+				margin-bottom: 2rem;
+				font-size: 0.74rem;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: var(--gold2);
+				font-weight: 700;
+				animation: fadeSlideUp 0.9s ease 0.1s both;
+			}
+			.hero-status-dot {
+				width: 7px;
+				height: 7px;
+				border-radius: 50%;
+				background: #4ade80;
+				box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+				animation: pulse 2s infinite;
+			}
+			@keyframes pulse {
+				0%,
+				100% {
+					opacity: 1;
+					transform: scale(1);
+				}
+				50% {
+					opacity: 0.4;
+					transform: scale(0.6);
+				}
+			}
+
+			.hero-greeting {
+				font-family: "DM Sans", sans-serif;
+				font-size: 0.88rem;
+				font-weight: 500;
+				color: var(--muted);
+				letter-spacing: 1px;
+				margin-bottom: 0.6rem;
+				animation: fadeSlideUp 0.9s ease 0.2s both;
+			}
+			.hero-name {
+				font-family: "Cormorant Garamond", serif;
+				font-size: clamp(3rem, 6vw, 5.5rem);
+				font-weight: 700;
+				line-height: 1;
+				letter-spacing: -1px;
+				animation: fadeSlideUp 0.9s ease 0.3s both;
+			}
+			.hero-name .first {
+				color: var(--white);
+			}
+			.hero-name .last {
+				color: var(--gold2);
+				font-style: italic;
+			}
+
+			.hero-role-wrap {
+				display: flex;
+				align-items: center;
+				gap: 14px;
+				margin: 1.2rem 0;
+				animation: fadeSlideUp 0.9s ease 0.4s both;
+			}
+			.hero-role-line {
+				width: 40px;
+				height: 1.5px;
+				background: var(--gold);
+			}
+			.hero-role {
+				font-family: "DM Sans", sans-serif;
+				font-size: clamp(0.85rem, 1.5vw, 1rem);
+				font-weight: 600;
+				color: var(--gold);
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+			}
+
+			.hero-desc {
+				font-size: 1rem;
+				color: rgba(255, 255, 255, 0.65);
+				line-height: 1.9;
+				font-weight: 300;
+				max-width: 500px;
+				margin-bottom: 2.5rem;
+				animation: fadeSlideUp 0.9s ease 0.5s both;
+			}
+
+			.hero-btns {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+				animation: fadeSlideUp 0.9s ease 0.6s both;
+			}
+			.btn-gold {
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				color: var(--navy);
+				padding: 14px 34px;
+				border-radius: 4px;
+				font-weight: 700;
+				font-size: 0.9rem;
+				text-decoration: none;
+				transition: all 0.3s;
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				letter-spacing: 0.5px;
+				box-shadow: 0 6px 24px rgba(200, 149, 42, 0.4);
+			}
+			.btn-gold:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 12px 30px rgba(200, 149, 42, 0.55);
+			}
+			.btn-outline {
+				background: transparent;
+				color: var(--white);
+				padding: 14px 34px;
+				border-radius: 4px;
+				font-weight: 500;
+				font-size: 0.9rem;
+				text-decoration: none;
+				border: 1px solid rgba(255, 255, 255, 0.25);
+				transition: all 0.3s;
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.btn-outline:hover {
+				border-color: var(--gold);
+				color: var(--gold);
+				transform: translateY(-3px);
+			}
+
+			.hero-tech-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+				margin-top: 2rem;
+				animation: fadeSlideUp 0.9s ease 0.7s both;
+			}
+			.tech-tag {
+				background: rgba(200, 149, 42, 0.07);
+				border: 1px solid rgba(200, 149, 42, 0.2);
+				color: rgba(255, 255, 255, 0.65);
+				font-size: 0.74rem;
+				font-weight: 500;
+				padding: 5px 12px;
+				border-radius: 3px;
+				letter-spacing: 0.5px;
+				transition: all 0.3s;
+			}
+			.tech-tag:hover {
+				background: rgba(200, 149, 42, 0.15);
+				border-color: var(--gold);
+				color: var(--gold2);
+			}
+
+			/* right profile visual */
+			.hero-right {
+				position: relative;
+				z-index: 2;
+				flex: 0 0 420px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding-bottom: 80px;
+			}
+
+			/* multi-layer profile design */
+			.profile-layers {
+				position: relative;
+				width: 360px;
+				height: 420px;
+			}
+
+			/* outer rotating ring */
+			.profile-ring-outer {
+				position: absolute;
+				inset: -28px;
+				border-radius: 50%;
+				border: 1px dashed rgba(200, 149, 42, 0.25);
+				animation: spin 18s linear infinite;
+			}
+			.profile-ring-outer::before {
+				content: "";
+				position: absolute;
+				inset: 14px;
+				border-radius: 50%;
+				border: 1px dashed rgba(200, 149, 42, 0.15);
+			}
+			/* orbit dots */
+			.orbit-dot {
+				position: absolute;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: var(--gold2);
+				box-shadow: 0 0 10px rgba(200, 149, 42, 0.8);
+			}
+			.orbit-dot:nth-child(1) {
+				top: -4px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.orbit-dot:nth-child(2) {
+				bottom: -4px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.orbit-dot:nth-child(3) {
+				left: -4px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			.orbit-dot:nth-child(4) {
+				right: -4px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+
+			@keyframes spin {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			/* glow blob behind photo */
+			.profile-glow {
+				position: absolute;
+				inset: 0;
+				border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
+				background: radial-gradient(ellipse, rgba(200, 149, 42, 0.18) 0%, rgba(200, 149, 42, 0.06) 40%, transparent 70%);
+				animation: blobMorph 6s ease-in-out infinite;
+			}
+			@keyframes blobMorph {
+				0%,
+				100% {
+					border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
+				}
+				33% {
+					border-radius: 60% 40% 40% 60% / 40% 60% 40% 60%;
+				}
+				66% {
+					border-radius: 50% 50% 60% 40% / 60% 40% 60% 40%;
+				}
+			}
+
+			/* geometric frame behind */
+			.profile-frame-back {
+				position: absolute;
+				top: 12px;
+				left: 12px;
+				right: -12px;
+				bottom: -12px;
+				border: 1px solid rgba(200, 149, 42, 0.2);
+				border-radius: 4px;
+			}
+			.profile-frame-back2 {
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				right: -20px;
+				bottom: -20px;
+				border: 1px solid rgba(200, 149, 42, 0.1);
+				border-radius: 4px;
+			}
+
+			/* main photo container */
+			.profile-photo {
+				position: absolute;
+				inset: 0;
+				border-radius: 4px;
+				overflow: hidden;
+				border: 1px solid rgba(200, 149, 42, 0.3);
+				background: var(--navy3);
+			}
+			.profile-photo img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				filter: saturate(0.8) brightness(0.9);
+			}
+			.profile-photo-placeholder {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 1rem;
+				color: var(--muted);
+				background: linear-gradient(160deg, var(--navy3) 0%, var(--navy4) 100%);
+			}
+			.profile-photo-placeholder i {
+				font-size: 5rem;
+				color: rgba(200, 149, 42, 0.3);
+			}
+			.profile-photo-placeholder p {
+				font-size: 0.8rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				text-align: center;
+				line-height: 1.6;
+			}
+			.profile-photo-overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(6, 16, 31, 0.6) 0%, transparent 50%);
+			}
+
+			/* floating info cards */
+			.profile-float {
+				position: absolute;
+				z-index: 5;
+				background: rgba(12, 26, 48, 0.92);
+				backdrop-filter: blur(16px);
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				padding: 10px 16px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+				animation: floatBob 4s ease-in-out infinite;
+			}
+			.profile-float:nth-child(2) {
+				animation-delay: -2s;
+			}
+			.profile-float-icon {
+				width: 34px;
+				height: 34px;
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 0.95rem;
+				flex-shrink: 0;
+			}
+			.profile-float-num {
+				font-family: "Cormorant Garamond", serif;
+				font-size: 1.4rem;
+				font-weight: 700;
+				color: var(--gold2);
+				line-height: 1;
+			}
+			.profile-float-lbl {
+				font-size: 0.7rem;
+				color: var(--muted);
+				margin-top: 1px;
+			}
+
+			.pf-exp {
+				top: 30px;
+				left: -70px;
+			}
+			.pf-proj {
+				bottom: 60px;
+				right: -70px;
+			}
+			@keyframes floatBob {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-8px);
+				}
+			}
+
+			/* corner art brackets on photo */
+			.pc-tl,
+			.pc-tr,
+			.pc-bl,
+			.pc-br {
+				position: absolute;
+				width: 22px;
+				height: 22px;
+				z-index: 4;
+				border-color: var(--gold);
+				border-style: solid;
+				opacity: 0.7;
+			}
+			.pc-tl {
+				top: -6px;
+				left: -6px;
+				border-width: 2px 0 0 2px;
+			}
+			.pc-tr {
+				top: -6px;
+				right: -6px;
+				border-width: 2px 2px 0 0;
+			}
+			.pc-bl {
+				bottom: -6px;
+				left: -6px;
+				border-width: 0 0 2px 2px;
+			}
+			.pc-br {
+				bottom: -6px;
+				right: -6px;
+				border-width: 0 2px 2px 0;
+			}
+
+			/* corner SVG ornaments hero */
+			.hero-corner {
+				position: absolute;
+				pointer-events: none;
+				z-index: 3;
+			}
+			.hero-corner.tl {
+				top: 82px;
+				left: 5%;
+			}
+			.hero-corner.br {
+				bottom: 90px;
+				right: 5%;
+			}
+			.hero-corner svg {
+				width: 72px;
+				height: 72px;
+				opacity: 0.25;
+			}
+
+			/* scroll cue */
+			.scroll-cue {
+				position: absolute;
+				bottom: 24px;
+				left: 5%;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				color: var(--muted);
+				font-size: 0.72rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				z-index: 3;
+			}
+			.scroll-line {
+				width: 40px;
+				height: 1px;
+				background: linear-gradient(to right, var(--gold), transparent);
+			}
+
+			@keyframes fadeSlideUp {
+				from {
+					opacity: 0;
+					transform: translateY(28px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			/* ── SECTION COMMONS ── */
+			section {
+				padding: 110px 5%;
+			}
+			.section-eyebrow {
+				display: inline-flex;
+				align-items: center;
+				gap: 12px;
+				color: var(--gold);
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				margin-bottom: 1rem;
+			}
+			.section-eyebrow i {
+				font-size: 0.7rem;
+			}
+			.section-title {
+				font-family: "Cormorant Garamond", serif;
+				font-size: clamp(2rem, 4.5vw, 3.2rem);
+				font-weight: 700;
+				line-height: 1.15;
+				margin-bottom: 1.2rem;
+				letter-spacing: -0.5px;
+			}
+			.section-title em {
+				font-style: italic;
+				color: var(--gold2);
+			}
+			.section-desc {
+				color: var(--muted);
+				font-size: 0.95rem;
+				line-height: 1.85;
+				max-width: 540px;
+				font-weight: 300;
+			}
+			.section-line {
+				width: 56px;
+				height: 2px;
+				margin: 1.2rem 0;
+				background: linear-gradient(to right, var(--gold), transparent);
+			}
+			.bg-text {
+				position: absolute;
+				font-family: "Cinzel", serif;
+				font-size: 11rem;
+				font-weight: 900;
+				color: rgba(200, 149, 42, 0.025);
+				line-height: 1;
+				user-select: none;
+				pointer-events: none;
+				letter-spacing: -5px;
+				z-index: 0;
+			}
+
+			/* ── ABOUT ── */
+			#about {
+				background: var(--navy2);
+				position: relative;
+				overflow: hidden;
+			}
+			.about-bg {
+				bottom: -60px;
+				right: -30px;
+			}
+			.about-inner {
+				position: relative;
+				z-index: 1;
+			}
+			.about-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 5rem;
+				align-items: center;
+				margin-top: 3rem;
+			}
+			.about-stat-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1rem;
+				margin-top: 2.5rem;
+			}
+			.about-stat {
+				background: var(--navy3);
+				border: 1px solid var(--border);
+				border-radius: 2px;
+				padding: 1.4rem;
+				transition: all 0.3s;
+			}
+			.about-stat:hover {
+				border-color: rgba(200, 149, 42, 0.4);
+				transform: translateY(-3px);
+			}
+			.about-stat .num {
+				font-family: "Cormorant Garamond", serif;
+				font-size: 2.4rem;
+				font-weight: 700;
+				color: var(--gold2);
+				line-height: 1;
+			}
+			.about-stat .lbl {
+				font-size: 0.78rem;
+				color: var(--muted);
+				margin-top: 4px;
+			}
+			.about-text p {
+				color: var(--muted);
+				font-size: 0.95rem;
+				line-height: 1.9;
+				font-weight: 300;
+				margin-bottom: 1rem;
+			}
+			.soft-skills {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+				margin-top: 1.5rem;
+			}
+			.soft-skill {
+				background: var(--gold-pale);
+				border: 1px solid rgba(200, 149, 42, 0.2);
+				color: rgba(255, 255, 255, 0.7);
+				font-size: 0.76rem;
+				font-weight: 500;
+				padding: 5px 13px;
+				border-radius: 20px;
+				transition: all 0.3s;
+			}
+			.soft-skill:hover {
+				background: rgba(200, 149, 42, 0.15);
+				border-color: var(--gold);
+				color: var(--gold2);
+			}
+
+			/* ── SKILLS ── */
+			#skills {
+				background: var(--navy);
+				position: relative;
+				overflow: hidden;
+			}
+			.skills-header {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 3rem;
+				align-items: end;
+				margin-bottom: 4rem;
+			}
+			.skills-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 1.5rem;
+			}
+			.skill-card {
+				background: var(--navy2);
+				border: 1px solid var(--border);
+				border-radius: 2px;
+				padding: 2rem;
+				transition: all 0.4s;
+				position: relative;
+				overflow: hidden;
+			}
+			.skill-card::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(to right, var(--gold), var(--gold2));
+				transform: scaleX(0);
+				transition: transform 0.4s;
+				transform-origin: left;
+			}
+			.skill-card:hover {
+				transform: translateY(-6px);
+				border-color: rgba(200, 149, 42, 0.35);
+				box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+			}
+			.skill-card:hover::before {
+				transform: scaleX(1);
+			}
+			.skill-card-icon {
+				width: 52px;
+				height: 52px;
+				border-radius: 10px;
+				background: var(--gold-pale);
+				border: 1px solid rgba(200, 149, 42, 0.25);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.3rem;
+				color: var(--gold2);
+				margin-bottom: 1.5rem;
+				transition: all 0.3s;
+			}
+			.skill-card:hover .skill-card-icon {
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				color: var(--navy);
+			}
+			.skill-card-name {
+				font-family: "Cormorant Garamond", serif;
+				font-size: 1.2rem;
+				font-weight: 700;
+				margin-bottom: 0.8rem;
+			}
+			.skill-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px;
+			}
+			.skill-tag {
+				background: rgba(200, 149, 42, 0.06);
+				border: 1px solid rgba(200, 149, 42, 0.15);
+				color: rgba(255, 255, 255, 0.6);
+				font-size: 0.73rem;
+				font-weight: 500;
+				padding: 4px 10px;
+				border-radius: 2px;
+				transition: all 0.3s;
+			}
+			.skill-card:hover .skill-tag {
+				background: rgba(200, 149, 42, 0.1);
+				border-color: rgba(200, 149, 42, 0.25);
+				color: rgba(255, 255, 255, 0.8);
+			}
+
+			/* progress bars */
+			.skill-bar-list {
+				display: flex;
+				flex-direction: column;
+				gap: 1.2rem;
+				margin-top: 3rem;
+			}
+			.skill-bar-item {
+			}
+			.skill-bar-label {
+				display: flex;
+				justify-content: space-between;
+				font-size: 0.84rem;
+				font-weight: 600;
+				margin-bottom: 7px;
+			}
+			.skill-bar-label span:last-child {
+				color: var(--gold2);
+			}
+			.skill-bar-track {
+				height: 4px;
+				background: rgba(200, 149, 42, 0.1);
+				border-radius: 2px;
+				overflow: hidden;
+			}
+			.skill-bar-fill {
+				height: 100%;
+				border-radius: 2px;
+				background: linear-gradient(to right, var(--gold), var(--gold2));
+				width: 0;
+				transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			/* ── SERVICES ── */
+			#services {
+				background: var(--navy2);
+				position: relative;
+				overflow: hidden;
+			}
+			.services-header {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 3rem;
+				align-items: end;
+				margin-bottom: 4rem;
+			}
+			.services-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1.5rem;
+			}
+			.service-card {
+				background: var(--navy3);
+				border: 1px solid var(--border);
+				border-radius: 2px;
+				padding: 2.2rem 2rem;
+				transition: all 0.4s;
+				position: relative;
+				overflow: hidden;
+				cursor: default;
+			}
+			.service-card::after {
+				content: attr(data-num);
+				position: absolute;
+				right: 1.5rem;
+				bottom: 1rem;
+				font-family: "Cormorant Garamond", serif;
+				font-size: 5rem;
+				font-weight: 700;
+				color: rgba(200, 149, 42, 0.05);
+				line-height: 1;
+				transition: color 0.4s;
+			}
+			.service-card:hover {
+				transform: translateY(-7px);
+				border-color: rgba(200, 149, 42, 0.38);
+				box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45);
+			}
+			.service-card:hover::after {
+				color: rgba(200, 149, 42, 0.1);
+			}
+			.service-icon {
+				width: 56px;
+				height: 56px;
+				border-radius: 12px;
+				background: var(--gold-pale);
+				border: 1px solid rgba(200, 149, 42, 0.25);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.4rem;
+				color: var(--gold2);
+				margin-bottom: 1.6rem;
+				transition: all 0.3s;
+			}
+			.service-card:hover .service-icon {
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				color: var(--navy);
+				transform: scale(1.08) rotate(-4deg);
+			}
+			.service-name {
+				font-family: "Cormorant Garamond", serif;
+				font-size: 1.3rem;
+				font-weight: 700;
+				margin-bottom: 0.8rem;
+			}
+			.service-desc {
+				color: var(--muted);
+				font-size: 0.87rem;
+				line-height: 1.8;
+				font-weight: 300;
+				margin-bottom: 1.4rem;
+			}
+			.service-bullets {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: 0.45rem;
+			}
+			.service-bullets li {
+				display: flex;
+				align-items: center;
+				gap: 9px;
+				font-size: 0.82rem;
+				color: rgba(255, 255, 255, 0.65);
+			}
+			.service-bullets li i {
+				color: var(--gold);
+				font-size: 0.55rem;
+			}
+
+			/* ── PROJECTS ── */
+			#projects {
+				background: var(--navy);
+				position: relative;
+				overflow: hidden;
+			}
+			.projects-header {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 3rem;
+				align-items: end;
+				margin-bottom: 4rem;
+			}
+			.projects-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 1.5rem;
+			}
+			.project-card {
+				background: var(--navy2);
+				border: 1px solid var(--border);
+				border-radius: 2px;
+				padding: 2rem;
+				transition: all 0.4s;
+				position: relative;
+				overflow: hidden;
+			}
+			.project-card:hover {
+				transform: translateY(-6px);
+				border-color: rgba(200, 149, 42, 0.38);
+				box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+			}
+			.project-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				margin-bottom: 1rem;
+			}
+			.project-icon {
+				width: 46px;
+				height: 46px;
+				border-radius: 8px;
+				background: var(--gold-pale);
+				border: 1px solid rgba(200, 149, 42, 0.25);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.1rem;
+				color: var(--gold2);
+				transition: all 0.3s;
+			}
+			.project-card:hover .project-icon {
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				color: var(--navy);
+			}
+			.project-badge {
+				background: rgba(200, 149, 42, 0.1);
+				border: 1px solid rgba(200, 149, 42, 0.2);
+				color: var(--gold);
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				padding: 4px 10px;
+				border-radius: 3px;
+			}
+			.project-name {
+				font-family: "Cormorant Garamond", serif;
+				font-size: 1.2rem;
+				font-weight: 700;
+				margin-bottom: 0.6rem;
+			}
+			.project-client {
+				color: var(--gold);
+				font-size: 0.76rem;
+				font-weight: 600;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin-bottom: 0.8rem;
+			}
+			.project-desc {
+				color: var(--muted);
+				font-size: 0.86rem;
+				line-height: 1.75;
+				font-weight: 300;
+				margin-bottom: 1.2rem;
+			}
+			.project-tech {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px;
+			}
+			.ptag {
+				background: var(--gold-pale);
+				border: 1px solid rgba(200, 149, 42, 0.15);
+				color: rgba(255, 255, 255, 0.55);
+				font-size: 0.7rem;
+				padding: 3px 9px;
+				border-radius: 2px;
+			}
+
+			/* ── CONTACT ── */
+			#contact {
+				background: var(--navy2);
+				position: relative;
+				overflow: hidden;
+			}
+			.contact-grid {
+				display: grid;
+				grid-template-columns: 1fr 1.3fr;
+				gap: 5rem;
+				margin-top: 3rem;
+			}
+			.contact-info-side {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+			.contact-item {
+				background: var(--navy3);
+				border: 1px solid var(--border);
+				border-radius: 2px;
+				padding: 1.4rem 1.6rem;
+				display: flex;
+				gap: 1.2rem;
+				align-items: flex-start;
+				transition: all 0.3s;
+			}
+			.contact-item:hover {
+				border-color: rgba(200, 149, 42, 0.35);
+				transform: translateX(5px);
+			}
+			.contact-item-icon {
+				width: 42px;
+				height: 42px;
+				border-radius: 8px;
+				background: var(--gold-pale);
+				border: 1px solid rgba(200, 149, 42, 0.25);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--gold2);
+				font-size: 1rem;
+				flex-shrink: 0;
+			}
+			.contact-item strong {
+				display: block;
+				font-size: 0.68rem;
+				color: var(--gold);
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				margin-bottom: 4px;
+			}
+			.contact-item p {
+				color: rgba(255, 255, 255, 0.72);
+				font-size: 0.88rem;
+				line-height: 1.55;
+				font-weight: 300;
+			}
+			.contact-item a {
+				color: rgba(255, 255, 255, 0.72);
+				text-decoration: none;
+			}
+			.contact-item a:hover {
+				color: var(--gold);
+			}
+			.social-row {
+				display: flex;
+				gap: 10px;
+				margin-top: 0.5rem;
+			}
+			.social-btn {
+				width: 40px;
+				height: 40px;
+				border-radius: 8px;
+				background: var(--gold-pale);
+				border: 1px solid var(--border);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--gold2);
+				font-size: 0.9rem;
+				text-decoration: none;
+				transition: all 0.3s;
+			}
+			.social-btn:hover {
+				background: var(--gold);
+				color: var(--navy);
+				border-color: var(--gold);
+				transform: translateY(-3px);
+			}
+
+			/* contact form */
+			.contact-form {
+				background: var(--navy3);
+				border: 1px solid var(--border);
+				border-radius: 2px;
+				padding: 2.5rem;
+				position: relative;
+			}
+			.contact-form::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(to right, var(--gold), var(--gold2));
+			}
+			.contact-form h3 {
+				font-family: "Cormorant Garamond", serif;
+				font-size: 1.6rem;
+				font-weight: 700;
+				margin-bottom: 1.8rem;
+			}
+			.form-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1rem;
+			}
+			.form-group {
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+				margin-bottom: 1.2rem;
+			}
+			.form-group label {
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				color: var(--gold);
+			}
+			.form-group input,
+			.form-group textarea,
+			.form-group select {
+				background: rgba(200, 149, 42, 0.04);
+				border: 1px solid rgba(200, 149, 42, 0.18);
+				border-radius: 3px;
+				padding: 12px 14px;
+				color: var(--white);
+				font-family: "DM Sans", sans-serif;
+				font-size: 0.88rem;
+				font-weight: 300;
+				outline: none;
+				transition: all 0.3s;
+				resize: none;
+			}
+			.form-group input:focus,
+			.form-group textarea:focus,
+			.form-group select:focus {
+				border-color: var(--gold);
+				background: rgba(200, 149, 42, 0.08);
+				box-shadow: 0 0 0 3px rgba(200, 149, 42, 0.08);
+			}
+			.form-group input::placeholder,
+			.form-group textarea::placeholder {
+				color: rgba(255, 255, 255, 0.3);
+			}
+			.form-group select option {
+				background: var(--navy2);
+			}
+			.btn-submit {
+				width: 100%;
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				color: var(--navy);
+				padding: 15px 24px;
+				border-radius: 4px;
+				border: none;
+				font-family: "DM Sans", sans-serif;
+				font-weight: 700;
+				font-size: 0.9rem;
+				cursor: pointer;
+				transition: all 0.3s;
+				letter-spacing: 0.5px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				box-shadow: 0 4px 16px rgba(200, 149, 42, 0.3);
+			}
+			.btn-submit:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 24px rgba(200, 149, 42, 0.5);
+			}
+
+			.field-error {
+				display: none;
+				color: #e05c5c;
+				font-size: 0.75rem;
+				margin-top: 4px;
+			}
+			.form-group input.invalid,
+			.form-group select.invalid,
+			.form-group textarea.invalid {
+				border-color: #e05c5c !important;
+			}
+			#submit-btn:disabled {
+				opacity: 0.6;
+				cursor: not-allowed;
+			}
+
+			/* ── FOOTER ── */
+			footer {
+				background: #030c18;
+				border-top: 1px solid var(--border);
+				padding: 60px 5% 32px;
+			}
+			.footer-inner {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 2rem;
+				margin-bottom: 2rem;
+			}
+			.footer-brand {
+				font-family: "Cinzel", serif;
+				font-size: 1rem;
+				font-weight: 700;
+				color: var(--white);
+			}
+			.footer-brand span {
+				color: var(--gold);
+				display: block;
+				font-size: 0.65rem;
+				font-family: "DM Sans", sans-serif;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				font-weight: 400;
+				margin-top: 3px;
+			}
+			.footer-links {
+				display: flex;
+				gap: 1.5rem;
+				flex-wrap: wrap;
+			}
+			.footer-links a {
+				color: var(--muted);
+				text-decoration: none;
+				font-size: 0.85rem;
+				transition: color 0.3s;
+			}
+			.footer-links a:hover {
+				color: var(--gold);
+			}
+			.footer-bottom {
+				border-top: 1px solid rgba(255, 255, 255, 0.06);
+				padding-top: 1.5rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 1rem;
+			}
+			.footer-bottom p {
+				color: var(--muted);
+				font-size: 0.8rem;
+			}
+			.footer-bottom .made-with {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				color: var(--muted);
+				font-size: 0.8rem;
+			}
+			.footer-bottom .made-with i {
+				color: var(--gold);
+			}
+
+			/* ── MARQUEE strip ── */
+			.marquee-wrap {
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				padding: 12px 0;
+				overflow: hidden;
+				position: relative;
+			}
+			.marquee-wrap::before,
+			.marquee-wrap::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 80px;
+				z-index: 2;
+			}
+			.marquee-wrap::before {
+				left: 0;
+				background: linear-gradient(to right, var(--gold), transparent);
+			}
+			.marquee-wrap::after {
+				right: 0;
+				background: linear-gradient(to left, var(--gold2), transparent);
+			}
+			.marquee-track {
+				display: flex;
+				animation: marquee 30s linear infinite;
+				width: max-content;
+			}
+			.marquee-track span {
+				font-size: 0.75rem;
+				font-weight: 700;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: var(--navy);
+				padding: 0 2.5rem;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.marquee-track span i {
+				font-size: 0.6rem;
+				opacity: 0.7;
+			}
+			@keyframes marquee {
+				0% {
+					transform: translateX(0);
+				}
+				100% {
+					transform: translateX(-50%);
+				}
+			}
+
+			/* ── SCROLL-REVEAL ── */
+			.reveal {
+				opacity: 0;
+				transform: translateY(26px);
+				transition:
+					opacity 0.7s ease,
+					transform 0.7s ease;
+			}
+			.reveal.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* ── RESPONSIVE ── */
+			@media (max-width: 1100px) {
+				#home {
+					flex-direction: column;
+					gap: 4rem;
+					padding-top: 120px;
+				}
+				.hero-right {
+					flex: none;
+					width: 100%;
+					justify-content: flex-start;
+				}
+				.profile-layers {
+					width: 280px;
+					height: 340px;
+				}
+				.pf-exp {
+					left: -40px;
+				}
+				.pf-proj {
+					right: -40px;
+				}
+				.about-grid,
+				.contact-grid {
+					grid-template-columns: 1fr;
+					gap: 3rem;
+				}
+				.skills-header,
+				.services-header,
+				.projects-header {
+					grid-template-columns: 1fr;
+				}
+			}
+			@media (max-width: 768px) {
+				.nav-links {
+					display: none;
+				}
+				.hamburger {
+					display: flex;
+				}
+				section {
+					padding: 70px 5%;
+				}
+				.hero-right {
+					display: none;
+				}
+				.form-row {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Custom cursor -->
+		<div class="cursor" id="cursor"></div>
+		<div class="cursor-ring" id="cursorRing"></div>
+
+		<!-- ===== NAVBAR ===== -->
+		<nav id="navbar">
+			<a class="nav-logo-wrap" href="#home">
+				<div class="nav-monogram">AA</div>
+				<div class="nav-name">
+					Atif Ahmad
+					<span>CRM Developer · ISB, Pakistan</span>
+				</div>
+			</a>
+			<ul class="nav-links">
+				<li><a href="#home">Home</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#skills">Skills</a></li>
+				<li><a href="#services">Services</a></li>
+				<li><a href="#projects">Projects</a></li>
+				<li><a href="#contact">Contact</a></li>
+				<li>
+					<a href="#" class="nav-cta" onclick="downloadCV(event)"><i class="fas fa-download" style="font-size: 0.75rem"></i> Download CV</a>
+				</li>
+			</ul>
+			<div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+		</nav>
+
+		<div class="mobile-menu" id="mobileMenu">
+			<ul>
+				<li><a href="#home" onclick="toggleMenu()">Home</a></li>
+				<li><a href="#about" onclick="toggleMenu()">About</a></li>
+				<li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+				<li><a href="#services" onclick="toggleMenu()">Services</a></li>
+				<li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+				<li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+			</ul>
+		</div>
+
+		<!-- ===== HERO ===== -->
+		<section id="home">
+			<div class="hero-grid"></div>
+			<div class="hero-glow"></div>
+			<div class="hero-glow2"></div>
+
+			<!-- corner ornaments -->
+			<div class="hero-corner tl">
+				<svg viewBox="0 0 72 72" fill="none">
+					<path d="M0,36 L36,0 L72,36" stroke="rgba(200,149,42,0.8)" stroke-width="1" />
+					<path d="M8,36 L36,8 L64,36" stroke="rgba(200,149,42,0.4)" stroke-width="0.5" />
+					<circle cx="36" cy="0" r="3" fill="rgba(200,149,42,0.9)" />
+				</svg>
+			</div>
+			<div class="hero-corner br">
+				<svg viewBox="0 0 72 72" fill="none">
+					<path d="M72,36 L36,72 L0,36" stroke="rgba(200,149,42,0.8)" stroke-width="1" />
+					<path d="M64,36 L36,64 L8,36" stroke="rgba(200,149,42,0.4)" stroke-width="0.5" />
+					<circle cx="36" cy="72" r="3" fill="rgba(200,149,42,0.9)" />
+				</svg>
+			</div>
+
+			<!-- LEFT content -->
+			<div class="hero-left">
+				<div class="hero-status-pill">
+					<div class="hero-status-dot"></div>
+					Available for Projects
+				</div>
+				<div class="hero-greeting">Hello, I'm</div>
+				<h1 class="hero-name">
+					<span class="first">Atif</span><br />
+					<span class="last">Ahmad.</span>
+				</h1>
+				<div class="hero-role-wrap">
+					<div class="hero-role-line"></div>
+					<div class="hero-role">Senior Microsoft Dynamics CRM Developer</div>
+				</div>
+				<p class="hero-desc">
+					3+ years of expertise crafting enterprise CRM solutions with Microsoft Dynamics 365 and the Power Platform. I turn complex business processes into elegant,
+					scalable systems that drive real results.
+				</p>
+				<div class="hero-btns">
+					<a href="#contact" class="btn-gold"> <i class="fas fa-paper-plane"></i> Hire Me </a>
+					<a href="#" class="btn-outline" onclick="downloadCV(event)"> <i class="fas fa-download"></i> Download CV </a>
+				</div>
+				<div class="hero-tech-tags">
+					<span class="tech-tag"><i class="fas fa-cube" style="margin-right: 5px; font-size: 0.65rem; color: var(--gold)"></i>Dynamics 365</span>
+					<span class="tech-tag"><i class="fas fa-bolt" style="margin-right: 5px; font-size: 0.65rem; color: var(--gold)"></i>Power Platform</span>
+					<span class="tech-tag">C# · .NET</span>
+					<span class="tech-tag">JavaScript</span>
+					<span class="tech-tag">TypeScript</span>
+					<span class="tech-tag">Python</span>
+					<span class="tech-tag">Angular</span>
+					<span class="tech-tag">Web API</span>
+					<span class="tech-tag">MVC</span>
+					<span class="tech-tag">HTML / CSS</span>
+				</div>
+			</div>
+
+			<!-- RIGHT profile visual -->
+			<div class="hero-right">
+				<div class="profile-layers">
+					<!-- Outer spinning ring with dots -->
+					<div class="profile-ring-outer">
+						<div class="orbit-dot"></div>
+						<div class="orbit-dot"></div>
+						<div class="orbit-dot"></div>
+						<div class="orbit-dot"></div>
+					</div>
+					<!-- glow blob -->
+					<div class="profile-glow"></div>
+					<!-- offset frame layers -->
+					<div class="profile-frame-back2"></div>
+					<div class="profile-frame-back"></div>
+					<!-- main photo -->
+					<div class="profile-photo">
+						<div class="profile-photo-placeholder">
+							<img src="profile.JPG" alt="" />
+							<!-- <i class="fas fa-user"></i> -->
+							<!-- <p>Add Your Photo Here<br /><span style="opacity: 0.5; font-size: 0.7rem">(Replace with &lt;img&gt; tag)</span></p> -->
+						</div>
+						<div class="profile-photo-overlay"></div>
+					</div>
+					<!-- corner brackets -->
+					<div class="pc-tl"></div>
+					<div class="pc-tr"></div>
+					<div class="pc-bl"></div>
+					<div class="pc-br"></div>
+					<!-- floating info cards -->
+					<div class="profile-float pf-exp">
+						<div class="profile-float-icon" style="background: rgba(200, 149, 42, 0.12); border: 1px solid rgba(200, 149, 42, 0.25); color: var(--gold2)">
+							<i class="fas fa-briefcase"></i>
+						</div>
+						<div>
+							<div class="profile-float-num">3+</div>
+							<div class="profile-float-lbl">Years Exp.</div>
+						</div>
+					</div>
+					<div class="profile-float pf-proj">
+						<div class="profile-float-icon" style="background: rgba(200, 149, 42, 0.12); border: 1px solid rgba(200, 149, 42, 0.25); color: var(--gold2)">
+							<i class="fas fa-check-circle"></i>
+						</div>
+						<div>
+							<div class="profile-float-num">10+</div>
+							<div class="profile-float-lbl">Projects Done</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- scroll cue -->
+			<div class="scroll-cue">
+				<div class="scroll-line"></div>
+				<span>Scroll Down</span>
+			</div>
+		</section>
+
+		<!-- ===== MARQUEE ===== -->
+		<div class="marquee-wrap">
+			<div class="marquee-track">
+				<span><i class="fas fa-cube"></i> Dynamics 365</span>
+				<span>◆</span>
+				<span><i class="fas fa-bolt"></i> Power Platform</span>
+				<span>◆</span>
+				<span><i class="fas fa-code"></i> C# · .NET</span>
+				<span>◆</span>
+				<span><i class="fab fa-js"></i> JavaScript</span>
+				<span>◆</span>
+				<span><i class="devicon-typescript-plain"></i> TypeScript</span>
+				<span>◆</span>
+				<span><i class="fab fa-python"></i> Python</span>
+				<span>◆</span>
+				<span><i class="fab fa-angular"></i> Angular</span>
+				<span>◆</span>
+				<span><i class="fas fa-server"></i> Web API · MVC</span>
+				<span>◆</span>
+				<span><i class="fas fa-database"></i> CRM Integration</span>
+				<span>◆</span>
+				<span><i class="fas fa-cube"></i> Dynamics 365</span>
+				<span>◆</span>
+				<span><i class="fas fa-bolt"></i> Power Platform</span>
+				<span>◆</span>
+				<span><i class="fas fa-code"></i> C# · .NET</span>
+				<span>◆</span>
+				<span><i class="fab fa-js"></i> JavaScript</span>
+				<span>◆</span>
+				<span><i class="devicon-typescript-plain"></i> TypeScript</span>
+				<span>◆</span>
+				<span><i class="fab fa-python"></i> Python</span>
+				<span>◆</span>
+				<span><i class="fab fa-angular"></i> Angular</span>
+				<span>◆</span>
+				<span><i class="fas fa-server"></i> Web API · MVC</span>
+				<span>◆</span>
+				<span><i class="fas fa-database"></i> CRM Integration</span>
+				<span>◆</span>
+			</div>
+		</div>
+
+		<!-- ===== ABOUT ===== -->
+		<section id="about">
+			<div class="bg-text about-bg" style="bottom: -60px; right: -30px">ABOUT</div>
+			<div class="about-inner">
+				<div class="section-eyebrow"><i class="fas fa-user-circle"></i> About Me</div>
+				<h2 class="section-title">Turning <em>Complex</em> Problems<br />Into Elegant Solutions</h2>
+				<div class="section-line"></div>
+				<div class="about-grid">
+					<div class="about-text reveal">
+						<p>
+							I'm <strong style="color: var(--white)">Atif Ahmad</strong>, a Senior Microsoft Dynamics CRM Developer based in KPK, Pakistan — with over 3 years of
+							hands-on experience designing, developing, and deploying enterprise CRM solutions across multiple industries.
+						</p>
+						<p>
+							My expertise spans the full Microsoft ecosystem — from Dynamics 365 customisation and Power Platform automation to building robust back-end services
+							with C# .NET, Web APIs, and modern front-end interfaces using Angular and JavaScript.
+						</p>
+						<p>I'm passionate about building systems that are not just technically sound, but genuinely transformative for the businesses that use them.</p>
+						<div style="margin-top: 1.5rem">
+							<div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem">
+								Soft Skills
+							</div>
+							<div class="soft-skills">
+								<span class="soft-skill">Problem Solving</span>
+								<span class="soft-skill">Team Leadership</span>
+								<span class="soft-skill">Communication</span>
+								<span class="soft-skill">Client Management</span>
+								<span class="soft-skill">Agile / Scrum</span>
+								<span class="soft-skill">Critical Thinking</span>
+								<span class="soft-skill">Time Management</span>
+								<span class="soft-skill">Mentoring</span>
+							</div>
+						</div>
+					</div>
+					<div class="reveal" style="transition-delay: 0.15s">
+						<div class="about-stat-grid">
+							<div class="about-stat">
+								<div class="num" data-count="3">0</div>
+								<div style="color: var(--gold2); font-family: &quot;Cormorant Garamond&quot;, serif; font-size: 1.4rem; font-weight: 700">+ Years</div>
+								<div class="lbl">Professional Experience</div>
+							</div>
+							<div class="about-stat">
+								<div class="num" data-count="10">0</div>
+								<div style="color: var(--gold2); font-family: &quot;Cormorant Garamond&quot;, serif; font-size: 1.4rem; font-weight: 700">+ Projects</div>
+								<div class="lbl">Successfully Delivered</div>
+							</div>
+							<div class="about-stat">
+								<div class="num" data-count="10">0</div>
+								<div style="color: var(--gold2); font-family: &quot;Cormorant Garamond&quot;, serif; font-size: 1.4rem; font-weight: 700">+ Clients</div>
+								<div class="lbl">Across Multiple Industries</div>
+							</div>
+							<div class="about-stat">
+								<div class="num" data-count="100">0</div>
+								<div style="color: var(--gold2); font-family: &quot;Cormorant Garamond&quot;, serif; font-size: 1.4rem; font-weight: 700">% Dedicated</div>
+								<div class="lbl">To Every Project</div>
+							</div>
+						</div>
+						<div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap">
+							<a href="#contact" class="btn-gold" style="flex: 1; min-width: 160px; justify-content: center"><i class="fas fa-paper-plane"></i> Let's Talk</a>
+							<a href="#" class="btn-outline" style="flex: 1; min-width: 160px; justify-content: center" onclick="downloadCV(event)"
+								><i class="fas fa-download"></i> Download CV</a
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ===== SKILLS ===== -->
+		<section id="skills">
+			<div class="bg-text" style="top: -40px; left: -30px; opacity: 0.02">SKILLS</div>
+			<div class="skills-header">
+				<div>
+					<div class="section-eyebrow"><i class="fas fa-layer-group"></i> Technical Expertise</div>
+					<h2 class="section-title">Skills &amp; <em>Technologies</em></h2>
+					<div class="section-line"></div>
+				</div>
+				<p class="section-desc" style="text-align: right">A comprehensive toolkit built over years of real-world enterprise development and client delivery.</p>
+			</div>
+
+			<div class="skills-grid">
+				<div class="skill-card reveal">
+					<div class="skill-card-icon"><i class="fas fa-cube"></i></div>
+					<div class="skill-card-name">Microsoft Dynamics CRM</div>
+					<div class="skill-tags">
+						<span class="skill-tag">Dynamics 365</span>
+						<span class="skill-tag">CRM Customisation</span>
+						<span class="skill-tag">Plugins</span>
+						<span class="skill-tag">Workflows</span>
+						<span class="skill-tag">PCF Controls</span>
+						<span class="skill-tag">Solutions</span>
+					</div>
+				</div>
+				<div class="skill-card reveal" style="transition-delay: 0.08s">
+					<div class="skill-card-icon"><i class="fas fa-bolt"></i></div>
+					<div class="skill-card-name">Power Platform</div>
+					<div class="skill-tags">
+						<span class="skill-tag">Power Automate</span>
+						<span class="skill-tag">Power Apps</span>
+						<span class="skill-tag">Power BI</span>
+						<span class="skill-tag">Dataverse</span>
+						<span class="skill-tag">Power Pages</span>
+					</div>
+				</div>
+				<div class="skill-card reveal" style="transition-delay: 0.16s">
+					<div class="skill-card-icon"><i class="fas fa-code"></i></div>
+					<div class="skill-card-name">Backend Development</div>
+					<div class="skill-tags">
+						<span class="skill-tag">C#</span>
+						<span class="skill-tag">.NET Core</span>
+						<span class="skill-tag">ASP.NET MVC</span>
+						<span class="skill-tag">Web API</span>
+						<span class="skill-tag">Entity Framework</span>
+					</div>
+				</div>
+				<div class="skill-card reveal" style="transition-delay: 0.08s">
+					<div class="skill-card-icon"><i class="fab fa-js-square"></i></div>
+					<div class="skill-card-name">Frontend Development</div>
+					<div class="skill-tags">
+						<span class="skill-tag">JavaScript</span>
+						<span class="skill-tag">Angular</span>
+						<span class="skill-tag">AngularJS</span>
+						<span class="skill-tag">HTML5</span>
+						<span class="skill-tag">CSS3</span>
+						<span class="skill-tag">TypeScript</span>
+					</div>
+				</div>
+				<div class="skill-card reveal" style="transition-delay: 0.16s">
+					<div class="skill-card-icon"><i class="fab fa-python"></i></div>
+					<div class="skill-card-name">Python & Scripting</div>
+					<div class="skill-tags">
+						<span class="skill-tag">Python</span>
+						<span class="skill-tag">Automation</span>
+						<span class="skill-tag">Data Processing</span>
+						<span class="skill-tag">REST Clients</span>
+					</div>
+				</div>
+				<div class="skill-card reveal" style="transition-delay: 0.24s">
+					<div class="skill-card-icon"><i class="fas fa-database"></i></div>
+					<div class="skill-card-name">Data & Integration</div>
+					<div class="skill-tags">
+						<span class="skill-tag">SQL Server</span>
+						<span class="skill-tag">Azure</span>
+						<span class="skill-tag">REST APIs</span>
+						<span class="skill-tag">OData</span>
+						<span class="skill-tag">SSIS</span>
+						<span class="skill-tag">SSRS</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Proficiency bars -->
+			<div style="margin-top: 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem">
+				<div class="reveal">
+					<div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.8rem">Proficiency</div>
+					<div class="skill-bar-list">
+						<div class="skill-bar-item">
+							<div class="skill-bar-label"><span>Microsoft Dynamics CRM</span><span>95%</span></div>
+							<div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+						</div>
+						<div class="skill-bar-item">
+							<div class="skill-bar-label"><span>Power Platform</span><span>80%</span></div>
+							<div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+						</div>
+						<div class="skill-bar-item">
+							<div class="skill-bar-label"><span>C# / .NET</span><span>90%</span></div>
+							<div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+						</div>
+						<div class="skill-bar-item">
+							<div class="skill-bar-label"><span>JavaScript / TypeScript / Angular</span><span>85%</span></div>
+							<div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+						</div>
+					</div>
+				</div>
+				<div class="reveal" style="transition-delay: 0.15s">
+					<div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.8rem">&nbsp;</div>
+					<div class="skill-bar-list">
+						<div class="skill-bar-item">
+							<div class="skill-bar-label"><span>Python</span><span>75%</span></div>
+							<div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+						</div>
+						<div class="skill-bar-item">
+							<div class="skill-bar-label"><span>Web API / REST</span><span>85%</span></div>
+							<div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+						</div>
+						<div class="skill-bar-item">
+							<div class="skill-bar-label"><span>SQL / Azure</span><span>80%</span></div>
+							<div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+						</div>
+						<div class="skill-bar-item">
+							<div class="skill-bar-label"><span>HTML / CSS</span><span>88%</span></div>
+							<div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ===== SERVICES ===== -->
+		<section id="services">
+			<div class="bg-text" style="bottom: -40px; right: -20px">SERVICES</div>
+			<div class="services-header">
+				<div>
+					<div class="section-eyebrow"><i class="fas fa-concierge-bell"></i> What I Offer</div>
+					<h2 class="section-title">My <em>Services</em></h2>
+					<div class="section-line"></div>
+				</div>
+				<p class="section-desc" style="text-align: right">End-to-end enterprise solutions — from initial consultation to deployment and ongoing support.</p>
+			</div>
+
+			<div class="services-grid">
+				<div class="service-card reveal" data-num="01">
+					<div class="service-icon"><i class="fas fa-cube"></i></div>
+					<div class="service-name">Dynamics 365 Development</div>
+					<p class="service-desc">
+						Custom CRM solutions tailored to your business processes — from entity customisation and form scripting to complex plugin development.
+					</p>
+					<ul class="service-bullets">
+						<li><i class="fas fa-circle"></i> Custom Entities & Relationships</li>
+						<li><i class="fas fa-circle"></i> Plugin & Workflow Development</li>
+						<li><i class="fas fa-circle"></i> PCF (Power Apps Component) Controls</li>
+						<li><i class="fas fa-circle"></i> CRM Portal Development</li>
+					</ul>
+				</div>
+				<div class="service-card reveal" data-num="02" style="transition-delay: 0.08s">
+					<div class="service-icon"><i class="fas fa-bolt"></i></div>
+					<div class="service-name">Power Platform Solutions</div>
+					<p class="service-desc">Accelerate your business with no-code and pro-code Power Platform apps, automated flows, and insightful dashboards.</p>
+					<ul class="service-bullets">
+						<li><i class="fas fa-circle"></i> Power Automate Flows</li>
+						<li><i class="fas fa-circle"></i> Power Apps Canvas & Model-Driven</li>
+						<li><i class="fas fa-circle"></i> Power BI Dashboards</li>
+						<li><i class="fas fa-circle"></i> Dataverse Configuration</li>
+					</ul>
+				</div>
+				<div class="service-card reveal" data-num="03" style="transition-delay: 0.16s">
+					<div class="service-icon"><i class="fas fa-plug"></i></div>
+					<div class="service-name">CRM Integration</div>
+					<p class="service-desc">Seamlessly connect Dynamics 365 with third-party systems, ERPs, and custom APIs to create a unified data ecosystem.</p>
+					<ul class="service-bullets">
+						<li><i class="fas fa-circle"></i> REST & SOAP API Integration</li>
+						<li><i class="fas fa-circle"></i> Azure Service Bus</li>
+						<li><i class="fas fa-circle"></i> Third-Party Connectors</li>
+						<li><i class="fas fa-circle"></i> Data Migration & ETL</li>
+					</ul>
+				</div>
+				<div class="service-card reveal" data-num="04" style="transition-delay: 0.08s">
+					<div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+					<div class="service-name">Full-Stack Web Development</div>
+					<p class="service-desc">Modern web applications built with .NET, Angular, and Web APIs — clean architecture, performant, and scalable.</p>
+					<ul class="service-bullets">
+						<li><i class="fas fa-circle"></i> ASP.NET MVC Applications</li>
+						<li><i class="fas fa-circle"></i> Angular SPA Development</li>
+						<li><i class="fas fa-circle"></i> RESTful Web API Design</li>
+						<li><i class="fas fa-circle"></i> SQL Server & Entity Framework</li>
+					</ul>
+				</div>
+				<div class="service-card reveal" data-num="05" style="transition-delay: 0.16s">
+					<div class="service-icon"><i class="fas fa-cogs"></i></div>
+					<div class="service-name">Business Process Automation</div>
+					<p class="service-desc">Eliminate manual tasks and inefficiencies with intelligent automation across your CRM, email, and business workflows.</p>
+					<ul class="service-bullets">
+						<li><i class="fas fa-circle"></i> Workflow Automation</li>
+						<li><i class="fas fa-circle"></i> Business Rules Configuration</li>
+						<li><i class="fas fa-circle"></i> Email & Notification Automation</li>
+						<li><i class="fas fa-circle"></i> Reporting & Analytics</li>
+					</ul>
+				</div>
+				<div class="service-card reveal" data-num="06" style="transition-delay: 0.24s">
+					<div class="service-icon"><i class="fas fa-headset"></i></div>
+					<div class="service-name">CRM Consultation & Support</div>
+					<p class="service-desc">Expert guidance on CRM strategy, architecture reviews, performance optimisation, and ongoing technical support for your team.</p>
+					<ul class="service-bullets">
+						<li><i class="fas fa-circle"></i> CRM Architecture Review</li>
+						<li><i class="fas fa-circle"></i> Performance Optimisation</li>
+						<li><i class="fas fa-circle"></i> Team Training & Onboarding</li>
+						<li><i class="fas fa-circle"></i> Ongoing Maintenance</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ===== PROJECTS ===== -->
+		<section id="projects">
+			<div class="bg-text" style="top: -40px; right: -30px">WORK</div>
+			<div class="projects-header">
+				<div>
+					<div class="section-eyebrow"><i class="fas fa-briefcase"></i> Portfolio</div>
+					<h2 class="section-title">Selected <em>Projects</em></h2>
+					<div class="section-line"></div>
+				</div>
+				<p class="section-desc" style="text-align: right">A selection of enterprise CRM and web projects delivered for clients across multiple industries.</p>
+			</div>
+
+			<div class="projects-grid">
+				<div class="project-card reveal">
+					<div class="project-header">
+						<div class="project-icon"><i class="fas fa-hospital"></i></div>
+						<span class="project-badge">Healthcare</span>
+					</div>
+					<div class="project-name">Sana Sana</div>
+					<div class="project-client">Hospital Management Portal</div>
+					<p class="project-desc">
+						Built a full-stack web portal integrated with Dynamics 365 CRM for hospital management. Implemented secure payment processing via Powertranz gateway and
+						automated patient communications using SendGrid email templates.
+					</p>
+					<div class="project-tech">
+						<span class="ptag">Dynamics 365</span><span class="ptag">ASP.NET Web API</span><span class="ptag">Angular</span><span class="ptag">C#</span
+						><span class="ptag">TypeScript</span><span class="ptag">PowerTranz</span><span class="ptag">SendGrid</span>
+					</div>
+				</div>
+				<div class="project-card reveal" style="transition-delay: 0.08s">
+					<div class="project-header">
+						<div class="project-icon"><i class="fa fa-shopping-cart"></i></div>
+						<span class="project-badge">E-commerce</span>
+					</div>
+					<div class="project-name">AutoMercado</div>
+					<div class="project-client">Vendor / Supplier Portal</div>
+					<p class="project-desc">
+						Developed a Supplier Relationship Management portal with deep Dynamics 365 customization. Automated case assignment workflows and built Excel data import
+						via ribbon button using Power Automate and the CRM Web API.
+					</p>
+					<div class="project-tech">
+						<span class="ptag">Dynamics 365</span><span class="ptag">SharePoint</span><span class="ptag">ASP.NET MVC</span><span class="ptag">C#</span
+						><span class="ptag">AngularJS</span><span class="ptag">Power Automate</span><span class="ptag">SSRS</span>
+					</div>
+				</div>
+				<div class="project-card reveal" style="transition-delay: 0.16s">
+					<div class="project-header">
+						<div class="project-icon"><i class="fas fa-file-alt"></i></div>
+						<span class="project-badge">DOC Library</span>
+					</div>
+					<div class="project-name">OMAC / Gamma</div>
+					<div class="project-client">Document Library System</div>
+					<p class="project-desc">
+						Designed a complete custom Document Library with Word and PDF printing capabilities. Implemented field-level security, automated approval workflows, and
+						scheduled monthly cloud flows for document processing.
+					</p>
+					<div class="project-tech">
+						<span class="ptag">Dynamics 365</span><span class="ptag">Power Automate</span><span class="ptag">C# Plugins</span><span class="ptag">JavaScript</span
+						><span class="ptag">Power BI Report Builder</span>
+					</div>
+				</div>
+				<div class="project-card reveal">
+					<div class="project-header">
+						<div class="project-icon"><i class="fas fa-hospital"></i></div>
+						<span class="project-badge">Healthcare</span>
+					</div>
+					<div class="project-name">Lana Partners</div>
+					<div class="project-client">Hospital Management CRM</div>
+					<p class="project-desc">
+						Delivered end-to-end CRM enhancements including custom workflows, business rules, and process automation. Built Power Apps Canvas App for mobile access and
+						JavaScript web resources for extended CRM functionality.
+					</p>
+					<div class="project-tech">
+						<span class="ptag">Dynamics 365</span><span class="ptag">Power Apps</span><span class="ptag">Power Automate</span><span class="ptag">JavaScript</span
+						><span class="ptag">Business Rules</span>
+					</div>
+				</div>
+				<div class="project-card reveal" style="transition-delay: 0.08s">
+					<div class="project-header">
+						<div class="project-icon"><i class="fas fa-chart-line"></i></div>
+						<span class="project-badge">Sales</span>
+					</div>
+					<div class="project-name">Mimojo</div>
+					<div class="project-client">Sales Pipeline Optimization</div>
+					<p class="project-desc">
+						Customized the full lead-to-opportunity sales process with automated time tracking at each pipeline stage. Built real-time dashboards to give management
+						live visibility into sales performance and conversion rates.
+					</p>
+					<div class="project-tech">
+						<span class="ptag">Dynamics 365</span><span class="ptag">Business Process Flows</span><span class="ptag">Dashboards</span><span class="ptag">Workflows</span
+						><span class="ptag">Power Automate</span>
+					</div>
+				</div>
+				<div class="project-card reveal" style="transition-delay: 0.16s">
+					<div class="project-header">
+						<div class="project-icon"><i class="fas fa-clock"></i></div>
+						<span class="project-badge">Retail</span>
+					</div>
+					<div class="project-name">Bobswatches</div>
+					<div class="project-client">Retail CRM & Integration</div>
+					<p class="project-desc">
+						Customized Dynamics 365 forms and entities for a luxury watch retail business. Built a C# console application for external data integration and developed
+						JavaScript web resources to extend core CRM functionality.
+					</p>
+					<div class="project-tech">
+						<span class="ptag">Dynamics 365</span><span class="ptag">C#</span><span class="ptag">Web API</span><span class="ptag">JavaScript</span
+						><span class="ptag">SQL Server</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ===== CONTACT ===== -->
+		<section id="contact">
+			<div class="bg-text" style="bottom: -40px; left: -30px">CONTACT</div>
+			<div class="section-eyebrow"><i class="fas fa-paper-plane"></i> Get In Touch</div>
+			<h2 class="section-title">Let's <em>Work Together</em></h2>
+			<div class="section-line"></div>
+			<div class="contact-grid">
+				<div class="contact-info-side reveal">
+					<div class="contact-item">
+						<div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+						<div>
+							<strong>Location</strong>
+							<p>Khyber Pakhtunkhwa, Pakistan<br />Available for Remote Work Worldwide</p>
+						</div>
+					</div>
+					<div class="contact-item">
+						<div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+						<div>
+							<strong>Email</strong>
+							<p><a href="mailto:atifahmad@email.com">atiff1099@gmail.com</a></p>
+						</div>
+					</div>
+					<div class="contact-item">
+						<div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+						<div>
+							<strong>Phone / WhatsApp</strong>
+							<p><a href="tel:+923491649173">+92 349 1649173</a></p>
+						</div>
+					</div>
+					<div class="contact-item">
+						<div class="contact-item-icon"><i class="fas fa-clock"></i></div>
+						<div>
+							<strong>Availability</strong>
+							<p>Mon – Fri, 10:00 am – 07:00 pm PKT<br />Also available weekends for urgent work</p>
+						</div>
+					</div>
+					<div>
+						<div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem">
+							Connect With Me
+						</div>
+						<div class="social-row">
+							<a href="https://www.linkedin.com/in/atif-ahmad-b549591b5/" class="social-btn" title="LinkedIn" target="_blank" rel="noopener noreferrer"
+								><i class="fab fa-linkedin-in"></i
+							></a>
+							<a href="https://github.com/The-01" class="social-btn" title="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+							<a href="https://wa.me/923491649173" class="social-btn" title="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+							<a href="#" class="social-btn" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+							<a href="mailto:atiff1099@gmail.com" class="social-btn" title="Email" target="_blank" rel="noopener noreferrer"><i class="fas fa-envelope"></i></a>
+						</div>
+					</div>
+				</div>
+
+				<div class="contact-form reveal" style="transition-delay: 0.15s">
+					<h3>Send a Message</h3>
+
+					<form id="contact-form" novalidate>
+						<div class="form-row">
+							<div class="form-group">
+								<label>Your Name</label>
+								<input type="text" id="from_name" name="from_name" placeholder="John Doe" />
+								<span class="field-error" id="err-name">Please enter your name.</span>
+							</div>
+							<div class="form-group">
+								<label>Email Address</label>
+								<input type="email" id="from_email" name="from_email" placeholder="john@company.com" />
+								<span class="field-error" id="err-email">Please enter a valid email.</span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label>Subject</label>
+							<select id="subject" name="subject">
+								<option value="" disabled selected>Select a topic...</option>
+								<option>Project Enquiry</option>
+								<option>Dynamics CRM Development</option>
+								<option>Power Platform Solution</option>
+								<option>CRM Integration</option>
+								<option>Full-Stack Development</option>
+								<option>Consultation</option>
+								<option>Other</option>
+							</select>
+							<span class="field-error" id="err-subject">Please select a subject.</span>
+						</div>
+
+						<div class="form-group">
+							<label>Message</label>
+							<textarea id="message" name="message" rows="5" placeholder="Tell me about your project requirements..."></textarea>
+							<span class="field-error" id="err-message">Message must be at least 20 characters.</span>
+						</div>
+
+						<button class="btn-submit" type="submit" id="submit-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+
+						<p id="form-success" style="display: none; color: var(--gold2); font-size: 0.85rem; margin-top: 1rem; text-align: center">
+							<i class="fas fa-check-circle"></i> &nbsp;Thank you! Your message has been sent.
+						</p>
+						<p id="form-error" style="display: none; color: #e05c5c; font-size: 0.85rem; margin-top: 1rem; text-align: center">
+							<i class="fas fa-exclamation-circle"></i> &nbsp;Something went wrong. Please try again.
+						</p>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<!-- ===== FOOTER ===== -->
+		<footer>
+			<div class="footer-inner">
+				<div class="footer-brand">
+					Atif Ahmad
+					<span>Sr. MS Dynamics CRM Developer · ISB, Pakistan</span>
+				</div>
+				<div class="footer-links">
+					<a href="#home">Home</a>
+					<a href="#about">About</a>
+					<a href="#skills">Skills</a>
+					<a href="#services">Services</a>
+					<a href="#projects">Projects</a>
+					<a href="#contact">Contact</a>
+				</div>
+				<a href="#" class="btn-gold" onclick="downloadCV(event)" style="font-size: 0.85rem; padding: 10px 24px"> <i class="fas fa-download"></i> Download CV </a>
+			</div>
+			<div class="footer-bottom">
+				<p>© <span id="year"></span> Atif Ahmad. All rights reserved.</p>
+				<div class="made-with">Built with <i class="fas fa-heart"></i> &amp; Precision</div>
+				<div style="display: flex; gap: 10px">
+					<a
+						href="https://www.linkedin.com/in/atif-ahmad-b549591b5/"
+						class="social-btn"
+						target="_blank"
+						rel="noopener noreferrer"
+						style="width: 32px; height: 32px; font-size: 0.75rem"
+						><i class="fab fa-linkedin-in"></i
+					></a>
+					<a href="https://github.com/The-01" class="social-btn" target="_blank" rel="noopener noreferrer" style="width: 32px; height: 32px; font-size: 0.75rem"
+						><i class="fab fa-github"></i
+					></a>
+					<a href="https://wa.me/923491649173" class="social-btn" target="_blank" rel="noopener noreferrer" style="width: 32px; height: 32px; font-size: 0.75rem"
+						><i class="fab fa-whatsapp"></i
+					></a>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// EmailJS init
+			emailjs.init("-XtlUdy1CRmtsw66r");
+
+			const SERVICE_ID = "service_h4lh3ws";
+			const TEMPLATE_ID = "template_2tccyyb";
+
+			document.getElementById("year").textContent = new Date().getFullYear();
+
+			// Custom cursor
+			const cursor = document.getElementById("cursor");
+			const ring = document.getElementById("cursorRing");
+			document.addEventListener("mousemove", (e) => {
+				cursor.style.left = e.clientX + "px";
+				cursor.style.top = e.clientY + "px";
+				setTimeout(() => {
+					ring.style.left = e.clientX + "px";
+					ring.style.top = e.clientY + "px";
+				}, 80);
+			});
+			document.querySelectorAll("a,button,.skill-card,.service-card,.project-card").forEach((el) => {
+				el.addEventListener("mouseenter", () => {
+					cursor.style.width = "16px";
+					cursor.style.height = "16px";
+					ring.style.width = "54px";
+					ring.style.height = "54px";
+					ring.style.borderColor = "rgba(200,149,42,0.8)";
+				});
+				el.addEventListener("mouseleave", () => {
+					cursor.style.width = "10px";
+					cursor.style.height = "10px";
+					ring.style.width = "38px";
+					ring.style.height = "38px";
+					ring.style.borderColor = "rgba(200,149,42,0.5)";
+				});
+			});
+
+			// Mobile menu
+			function toggleMenu() {
+				document.getElementById("mobileMenu").classList.toggle("open");
+			}
+
+			// Navbar scroll
+			window.addEventListener("scroll", () => {
+				const nav = document.getElementById("navbar");
+				nav.style.height = window.scrollY > 60 ? "60px" : "72px";
+				nav.style.background = window.scrollY > 60 ? "rgba(3,12,24,0.97)" : "rgba(6,16,31,0.92)";
+			});
+
+			// Scroll reveal
+			const ro = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => {
+						if (e.isIntersecting) {
+							e.target.classList.add("visible");
+							ro.unobserve(e.target);
+						}
+					});
+				},
+				{ threshold: 0.1 }
+			);
+			document.querySelectorAll(".reveal").forEach((el) => ro.observe(el));
+
+			// Skill bars
+			const barObs = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => {
+						if (e.isIntersecting) {
+							e.target.querySelectorAll(".skill-bar-fill").forEach((bar) => {
+								bar.style.width = bar.dataset.width + "%";
+							});
+							barObs.unobserve(e.target);
+						}
+					});
+				},
+				{ threshold: 0.3 }
+			);
+			document.querySelectorAll("#skills").forEach((el) => barObs.observe(el));
+
+			// Count-up animation
+			function countUp(el, target) {
+				const dur = 1600,
+					start = performance.now();
+				function step(now) {
+					const p = Math.min((now - start) / dur, 1);
+					el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target);
+					if (p < 1) requestAnimationFrame(step);
+				}
+				requestAnimationFrame(step);
+			}
+			const cObs = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => {
+						if (e.isIntersecting) {
+							e.target.querySelectorAll("[data-count]").forEach((el) => countUp(el, +el.dataset.count));
+							cObs.unobserve(e.target);
+						}
+					});
+				},
+				{ threshold: 0.3 }
+			);
+			document.querySelectorAll("#about").forEach((el) => cObs.observe(el));
+
+			// Active nav link highlight
+			const sections = document.querySelectorAll("section[id]");
+			window.addEventListener("scroll", () => {
+				const pos = window.scrollY + 100;
+				sections.forEach((s) => {
+					const link = document.querySelector(`.nav-links a[href="#${s.id}"]`);
+					if (link) {
+						if (pos >= s.offsetTop && pos < s.offsetTop + s.offsetHeight) {
+							link.style.color = "var(--gold2)";
+						} else {
+							link.style.color = "";
+						}
+					}
+				});
+			});
+
+			// Download CV placeholder
+			function downloadCV(e) {
+				e.preventDefault();
+
+				const fileUrl = "https://drive.google.com/uc?export=download&id=1on0krRgwChJQSidzty9GJdlWEZ2cWbn-";
+
+				const link = document.createElement("a");
+				link.href = fileUrl;
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+			}
+
+			// ── Validation helpers ──────────────────────────────────────
+			function showError(fieldId, errId) {
+				const field = document.getElementById(fieldId);
+				const err = document.getElementById(errId);
+				field.classList.add("invalid");
+				err.style.display = "block";
+			}
+
+			function clearError(fieldId, errId) {
+				const field = document.getElementById(fieldId);
+				const err = document.getElementById(errId);
+				field.classList.remove("invalid");
+				err.style.display = "none";
+			}
+
+			function isValidEmail(email) {
+				return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+			}
+
+			function validateForm() {
+				let valid = true;
+
+				const name = document.getElementById("from_name").value.trim();
+				const email = document.getElementById("from_email").value.trim();
+				const subject = document.getElementById("subject").value;
+				const message = document.getElementById("message").value.trim();
+
+				// Name
+				if (name.length < 2) {
+					showError("from_name", "err-name");
+					valid = false;
+				} else {
+					clearError("from_name", "err-name");
+				}
+
+				// Email
+				if (!isValidEmail(email)) {
+					showError("from_email", "err-email");
+					valid = false;
+				} else {
+					clearError("from_email", "err-email");
+				}
+
+				// Subject
+				if (!subject) {
+					showError("subject", "err-subject");
+					valid = false;
+				} else {
+					clearError("subject", "err-subject");
+				}
+
+				// Message (min 20 chars)
+				if (message.length < 20) {
+					showError("message", "err-message");
+					valid = false;
+				} else {
+					clearError("message", "err-message");
+				}
+
+				return valid;
+			}
+
+			// ── Form submit ─────────────────────────────────────────────
+			document.getElementById("contact-form").addEventListener("submit", function (e) {
+				e.preventDefault();
+
+				if (!validateForm()) return;
+
+				const btn = document.getElementById("submit-btn");
+				btn.disabled = true;
+				btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+				emailjs
+					.sendForm(SERVICE_ID, TEMPLATE_ID, this)
+					.then(() => {
+						document.getElementById("form-success").style.display = "block";
+						document.getElementById("form-error").style.display = "none";
+						document.getElementById("contact-form").reset();
+						btn.disabled = false;
+						btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+						setTimeout(() => (document.getElementById("form-success").style.display = "none"), 4000);
+					})
+					.catch(() => {
+						document.getElementById("form-error").style.display = "block";
+						document.getElementById("form-success").style.display = "none";
+						btn.disabled = false;
+						btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+					});
+			});
+
+			// ── Clear errors on input (live feedback) ───────────────────
+			["from_name", "from_email", "subject", "message"].forEach((id) => {
+				document.getElementById(id).addEventListener("input", () => {
+					const errId = "err-" + id.replace("from_", "");
+					clearError(id, errId);
+				});
+			});
+		</script>
+	</body>
+</html>
