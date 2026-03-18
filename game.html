@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CRM Type Rush — Atif Ahmad</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+		<link rel="stylesheet" href="game.css" />
+	</head>
+	<body>
+		<!-- Particle canvas -->
+		<canvas id="particleCanvas"></canvas>
+
+		<!-- ===== SCREEN: HOME ===== -->
+		<div class="screen active" id="screen-home">
+			<div class="home-inner">
+				<div class="game-logo">
+					<div class="logo-icon">
+						<!-- Static developer / person avatar -->
+						<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<!-- Head -->
+							<circle cx="32" cy="20" r="10" fill="#172d4d" stroke="rgba(200,149,42,0.7)" stroke-width="1.5" />
+							<!-- Face highlight -->
+							<circle cx="28.5" cy="18" r="2" fill="rgba(200,149,42,0.25)" />
+							<!-- Code symbol on head -->
+							<text x="27" y="23" font-family="monospace" font-size="8" fill="rgba(200,149,42,0.9)">&lt;/&gt;</text>
+							<!-- Shoulders / body -->
+							<path d="M10 54 C10 40 22 36 32 36 C42 36 54 40 54 54" fill="#172d4d" stroke="rgba(200,149,42,0.55)" stroke-width="1.5" stroke-linecap="round" />
+							<!-- Laptop hint on lap -->
+							<rect x="22" y="47" width="20" height="5" rx="1.5" fill="#0c1a30" stroke="rgba(200,149,42,0.4)" stroke-width="1" />
+							<rect x="24" y="49" width="7" height="1.5" rx="0.5" fill="rgba(200,149,42,0.6)" />
+							<rect x="24" y="51.5" width="5" height="1" rx="0.5" fill="rgba(200,149,42,0.35)" />
+						</svg>
+					</div>
+					<h1 class="logo-title">CRM <em>Type Rush</em></h1>
+					<p class="logo-sub">Master the Microsoft Ecosystem — One Word at a Time</p>
+				</div>
+
+				<div class="mode-grid">
+					<div class="mode-card" data-mode="beginner" onclick="selectMode('beginner')">
+						<div class="mode-icon"><i class="fas fa-seedling"></i></div>
+						<div class="mode-badge">Beginner</div>
+						<div class="mode-name">Foundation</div>
+						<div class="mode-desc">Short common CRM terms. Perfect for warming up your fingers.</div>
+						<div class="mode-meta">
+							<span><i class="fas fa-clock"></i> 60s per level</span>
+							<span><i class="fas fa-layer-group"></i> 5 Levels</span>
+						</div>
+						<div class="mode-words-preview"><span>CRM</span><span>plugin</span><span>workflow</span><span>form</span></div>
+					</div>
+
+					<div class="mode-card featured" data-mode="intermediate" onclick="selectMode('intermediate')">
+						<div class="mode-hot">🔥 Popular</div>
+						<div class="mode-icon"><i class="fas fa-bolt"></i></div>
+						<div class="mode-badge">Intermediate</div>
+						<div class="mode-name">Developer</div>
+						<div class="mode-desc">API names, entity types, and real Dynamics 365 concepts.</div>
+						<div class="mode-meta">
+							<span><i class="fas fa-clock"></i> 45s per level</span>
+							<span><i class="fas fa-layer-group"></i> 7 Levels</span>
+						</div>
+						<div class="mode-words-preview"><span>Dataverse</span><span>PCF control</span><span>OData</span><span>plugin</span></div>
+					</div>
+
+					<div class="mode-card" data-mode="expert" onclick="selectMode('expert')">
+						<div class="mode-icon"><i class="fas fa-skull"></i></div>
+						<div class="mode-badge">Expert</div>
+						<div class="mode-name">Architect</div>
+						<div class="mode-desc">Complex technical phrases. Only the elite survive this mode.</div>
+						<div class="mode-meta">
+							<span><i class="fas fa-clock"></i> 30s per level</span>
+							<span><i class="fas fa-layer-group"></i> 10 Levels</span>
+						</div>
+						<div class="mode-words-preview"><span>ISV solutions</span><span>Azure DevOps CI/CD</span><span>FetchXML</span></div>
+					</div>
+				</div>
+
+				<div class="home-footer">
+					<div class="hf-stat"><i class="fas fa-trophy"></i> Best WPM: <strong id="best-wpm-display">—</strong></div>
+					<div class="hf-stat"><i class="fas fa-star"></i> High Score: <strong id="best-score-display">—</strong></div>
+					<div class="hf-stat"><i class="fas fa-gamepad"></i> Games Played: <strong id="games-played-display">0</strong></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ===== SCREEN: LEVEL SELECT ===== -->
+		<div class="screen" id="screen-levels">
+			<div class="levels-inner">
+				<div class="levels-header">
+					<button class="back-screen-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+					<div>
+						<div class="levels-eyebrow" id="levels-mode-label">Beginner Mode</div>
+						<h2 class="levels-title">Choose Your <em>Level</em></h2>
+					</div>
+				</div>
+				<div class="levels-grid" id="levels-grid"></div>
+			</div>
+		</div>
+
+		<!-- ===== SCREEN: GAME ===== -->
+		<div class="screen" id="screen-game">
+			<div class="game-ui">
+				<!-- Top HUD -->
+				<div class="hud">
+					<div class="hud-item">
+						<div class="hud-label">WPM</div>
+						<div class="hud-val" id="hud-wpm">0</div>
+					</div>
+					<div class="hud-item">
+						<div class="hud-label">Accuracy</div>
+						<div class="hud-val" id="hud-acc">100%</div>
+					</div>
+					<div class="hud-center">
+						<div class="hud-level-badge" id="hud-level-badge">Level 1</div>
+						<div class="timer-ring-wrap">
+							<svg class="timer-ring" viewBox="0 0 120 120">
+								<circle class="ring-track" cx="60" cy="60" r="52" />
+								<circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52" />
+							</svg>
+							<div class="timer-num" id="timer-num">60</div>
+						</div>
+					</div>
+					<div class="hud-item">
+						<div class="hud-label">Score</div>
+						<div class="hud-val" id="hud-score">0</div>
+					</div>
+					<div class="hud-item">
+						<div class="hud-label">Streak</div>
+						<div class="hud-val" id="hud-streak">0<span style="font-size: 0.6rem; color: var(--gold)">🔥</span></div>
+					</div>
+				</div>
+
+				<!-- Word stream -->
+				<div class="word-stream-wrap">
+					<div class="word-stream" id="word-stream"></div>
+				</div>
+
+				<!-- Current word display -->
+				<div class="current-word-display">
+					<div class="cw-label">Type this word</div>
+					<div class="current-word" id="current-word">—</div>
+					<div class="cw-progress-wrap">
+						<div class="cw-progress" id="cw-progress"></div>
+					</div>
+				</div>
+
+				<!-- Input area -->
+				<div class="input-area">
+					<div class="input-wrap">
+						<i class="fas fa-keyboard input-icon"></i>
+						<input
+							type="text"
+							id="game-input"
+							class="game-input"
+							placeholder="Start typing…"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="none"
+							spellcheck="false"
+						/>
+						<div class="input-hint" id="input-hint"></div>
+					</div>
+				</div>
+
+				<!-- Progress bar -->
+				<div class="level-progress-wrap">
+					<div class="lp-label">Level Progress</div>
+					<div class="lp-track"><div class="lp-fill" id="lp-fill"></div></div>
+					<div class="lp-words" id="lp-words">0 / 0 words</div>
+				</div>
+
+				<!-- Quit -->
+				<button class="quit-btn" onclick="quitGame()"><i class="fas fa-times"></i> Quit</button>
+			</div>
+		</div>
+
+		<!-- ===== SCREEN: RESULT ===== -->
+		<div class="screen" id="screen-result">
+			<div class="result-inner">
+				<div class="result-trophy" id="result-trophy">🏆</div>
+				<div class="result-title" id="result-title">Level Complete!</div>
+				<div class="result-sub" id="result-sub">Excellent typing skills!</div>
+
+				<div class="result-stats">
+					<div class="rs-card">
+						<div class="rs-val" id="rs-wpm">0</div>
+						<div class="rs-lbl">WPM</div>
+					</div>
+					<div class="rs-card">
+						<div class="rs-val" id="rs-acc">0%</div>
+						<div class="rs-lbl">Accuracy</div>
+					</div>
+					<div class="rs-card">
+						<div class="rs-val" id="rs-score">0</div>
+						<div class="rs-lbl">Score</div>
+					</div>
+					<div class="rs-card">
+						<div class="rs-val" id="rs-streak">0</div>
+						<div class="rs-lbl">Best Streak</div>
+					</div>
+				</div>
+
+				<div class="result-stars" id="result-stars"></div>
+
+				<div class="result-btns">
+					<button class="btn-gold-game" id="btn-next" onclick="nextLevel()"><i class="fas fa-arrow-right"></i> Next Level</button>
+					<button class="btn-outline-game" onclick="replayLevel()"><i class="fas fa-redo"></i> Replay</button>
+					<button class="btn-outline-game" onclick="goHome()"><i class="fas fa-home"></i> Home</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Floating combo popup -->
+		<div class="combo-popup" id="combo-popup"></div>
+
+		<script src="game.js"></script>
+	</body>
+</html>

@@ -1568,6 +1568,279 @@
 					grid-template-columns: 1fr;
 				}
 			}
+
+			/* ── FLOATING GAME BUTTON ── */
+			.play-game-fab {
+				position: fixed;
+				bottom: 32px;
+				right: 32px;
+				z-index: 8000;
+				cursor: none !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.fab-icon {
+				width: 58px;
+				height: 58px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.4rem;
+				color: var(--navy);
+				box-shadow: 0 6px 24px rgba(200, 149, 42, 0.45);
+				transition:
+					transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+					box-shadow 0.3s;
+				position: relative;
+				z-index: 2;
+				animation: fabPulse 3s ease-in-out infinite;
+			}
+			@keyframes fabPulse {
+				0%,
+				100% {
+					box-shadow:
+						0 6px 24px rgba(200, 149, 42, 0.45),
+						0 0 0 0 rgba(200, 149, 42, 0.3);
+				}
+				50% {
+					box-shadow:
+						0 6px 24px rgba(200, 149, 42, 0.45),
+						0 0 0 12px rgba(200, 149, 42, 0);
+				}
+			}
+			.play-game-fab:hover .fab-icon {
+				transform: scale(1.12) rotate(-8deg);
+				box-shadow: 0 12px 36px rgba(200, 149, 42, 0.65);
+				animation: none;
+			}
+			.fab-ripple {
+				position: absolute;
+				width: 58px;
+				height: 58px;
+				border-radius: 50%;
+				border: 2px solid rgba(200, 149, 42, 0.4);
+				animation: fabRipple 2.5s ease-out infinite;
+				pointer-events: none;
+			}
+			@keyframes fabRipple {
+				0% {
+					transform: scale(1);
+					opacity: 0.6;
+				}
+				100% {
+					transform: scale(2.2);
+					opacity: 0;
+				}
+			}
+			.fab-tooltip {
+				position: absolute;
+				right: 70px;
+				background: rgba(12, 26, 48, 0.96);
+				backdrop-filter: blur(16px);
+				border: 1px solid var(--border);
+				color: var(--white);
+				font-size: 0.8rem;
+				font-weight: 500;
+				padding: 9px 16px;
+				border-radius: 8px;
+				white-space: nowrap;
+				pointer-events: none;
+				opacity: 0;
+				transform: translateX(8px);
+				transition:
+					opacity 0.25s,
+					transform 0.25s;
+				font-family: "DM Sans", sans-serif;
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+			}
+			.fab-tooltip::after {
+				content: "";
+				position: absolute;
+				right: -6px;
+				top: 50%;
+				transform: translateY(-50%);
+				border: 6px solid transparent;
+				border-right: none;
+				border-left-color: rgba(12, 26, 48, 0.96);
+			}
+			.play-game-fab:hover .fab-tooltip {
+				opacity: 1;
+				transform: translateX(0);
+			}
+
+			/* ── MODAL OVERLAY ── */
+			.game-modal-overlay {
+				position: fixed;
+				inset: 0;
+				z-index: 9000;
+				background: rgba(3, 10, 22, 0.75);
+				backdrop-filter: blur(8px);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.35s ease;
+			}
+			.game-modal-overlay.open {
+				opacity: 1;
+				pointer-events: all;
+			}
+
+			/* ── MODAL WINDOW ── */
+			.game-modal {
+				width: 940px;
+				height: 620px;
+				max-width: calc(100vw - 40px);
+				max-height: calc(100vh - 40px);
+				background: #06101f;
+				border: 1px solid rgba(200, 149, 42, 0.28);
+				border-radius: 12px;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				box-shadow:
+					0 40px 100px rgba(0, 0, 0, 0.75),
+					0 0 0 1px rgba(200, 149, 42, 0.1);
+				transform: scale(0.94) translateY(10px);
+				transition: transform 0.38s cubic-bezier(0.34, 1.2, 0.64, 1);
+			}
+			.game-modal-overlay.open .game-modal {
+				transform: scale(1) translateY(0);
+			}
+			.game-modal.fullscreen {
+				width: 100vw !important;
+				height: 100vh !important;
+				max-width: 100vw;
+				max-height: 100vh;
+				border-radius: 0;
+				border: none;
+			}
+
+			/* ── TITLE BAR ── */
+			.game-modal-bar {
+				height: 42px;
+				background: #0a1628;
+				border-bottom: 1px solid rgba(200, 149, 42, 0.14);
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 16px;
+				flex-shrink: 0;
+				user-select: none;
+				position: relative;
+				/* Show: fast fade-in. Hide: instant */
+				opacity: 1;
+				transform: translateY(0);
+				transition:
+					opacity 0.18s ease,
+					transform 0.18s ease;
+			}
+			/* Hide bar instantly when cursor leaves */
+			.game-modal.bar-hidden .game-modal-bar {
+				opacity: 0;
+				transform: translateY(-100%);
+				pointer-events: none;
+				transition: none;
+			}
+			.gm-bar-left {
+				width: 60px;
+			}
+			.gm-bar-right {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				justify-content: flex-end;
+			}
+			.gm-dot {
+				width: 13px;
+				height: 13px;
+				border-radius: 50%;
+				cursor: pointer;
+				transition:
+					opacity 0.2s,
+					transform 0.15s;
+				position: relative;
+				flex-shrink: 0;
+			}
+			.gm-dot:hover {
+				opacity: 0.75;
+				transform: scale(1.2);
+			}
+			.gm-close {
+				background: #f87171;
+				box-shadow: 0 0 6px rgba(248, 113, 113, 0.4);
+			}
+			.gm-min {
+				background: var(--gold2);
+				box-shadow: 0 0 6px rgba(229, 184, 74, 0.4);
+			}
+			.gm-max {
+				background: #4ade80;
+				box-shadow: 0 0 6px rgba(74, 222, 128, 0.4);
+			}
+			.gm-bar-title {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				font-family: "DM Sans", sans-serif;
+				font-size: 0.8rem;
+				font-weight: 600;
+				color: rgba(255, 255, 255, 0.65);
+				letter-spacing: 0.5px;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				pointer-events: none;
+			}
+
+			/* ── IFRAME ── */
+			.game-frame {
+				flex: 1;
+				border: none;
+				width: 100%;
+				display: block;
+				background: #06101f;
+			}
+
+			/* ── MINIMISED PILL ── */
+			.game-minimised {
+				position: fixed;
+				bottom: 20px;
+				left: 50%;
+				transform: translateX(-50%) translateY(80px);
+				z-index: 9001;
+				background: #0c1a30;
+				border: 1px solid rgba(200, 149, 42, 0.3);
+				border-radius: 30px;
+				padding: 10px 22px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				font-size: 0.82rem;
+				font-weight: 600;
+				color: var(--gold2);
+				cursor: pointer;
+				box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+				transition:
+					transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+					opacity 0.35s;
+				opacity: 0;
+				pointer-events: none;
+				font-family: "DM Sans", sans-serif;
+			}
+			.game-minimised.visible {
+				transform: translateX(-50%) translateY(0);
+				opacity: 1;
+				pointer-events: all;
+			}
+			.game-minimised:hover {
+				background: #112240;
+				border-color: var(--gold);
+			}
 		</style>
 	</head>
 	<body>
@@ -2181,7 +2454,11 @@
 						<div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
 						<div>
 							<strong>Email</strong>
-							<p><a href="mailto:atifahmad@email.com">atiff1099@gmail.com</a></p>
+							<p>
+								<a href="/cdn-cgi/l/email-protection#68091c010e090005090c280d05090104460b0705"
+									><span class="__cf_email__" data-cfemail="d2b3a6bbb4b4e3e2ebeb92b5bfb3bbbefcb1bdbf">[email&#160;protected]</span></a
+								>
+							</p>
 						</div>
 					</div>
 					<div class="contact-item">
@@ -2209,7 +2486,14 @@
 							<a href="https://github.com/The-01" class="social-btn" title="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
 							<a href="https://wa.me/923491649173" class="social-btn" title="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
 							<a href="#" class="social-btn" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
-							<a href="mailto:atiff1099@gmail.com" class="social-btn" title="Email" target="_blank" rel="noopener noreferrer"><i class="fas fa-envelope"></i></a>
+							<a
+								href="/cdn-cgi/l/email-protection#afcedbc6c9c99e9f9696efc8c2cec6c381ccc0c2"
+								class="social-btn"
+								title="Email"
+								target="_blank"
+								rel="noopener noreferrer"
+								><i class="fas fa-envelope"></i
+							></a>
 						</div>
 					</div>
 				</div>
@@ -2304,6 +2588,41 @@
 			</div>
 		</footer>
 
+		<!-- Floating Play Game button -->
+		<div class="play-game-fab" id="gameBtn" onclick="openGame()">
+			<div class="fab-tooltip">Feeling bored? Let's play a game! 🎮</div>
+			<div class="fab-icon"><i class="fas fa-gamepad"></i></div>
+			<div class="fab-ripple"></div>
+		</div>
+
+		<!-- Modal overlay -->
+		<div id="game-modal-overlay" class="game-modal-overlay">
+			<div class="game-modal" id="gameModal">
+				<!-- Title bar — auto-hides when cursor leaves -->
+				<div class="game-modal-bar" id="gameModalBar">
+					<div class="gm-bar-left"></div>
+					<div class="gm-bar-title">
+						<i class="fas fa-gamepad" style="color: var(--gold); font-size: 0.75rem; margin-right: 6px"></i>
+						CRM Type Rush
+					</div>
+					<div class="gm-bar-right">
+						<div class="gm-dot gm-max" onclick="maximizeGame()" title="Fullscreen"></div>
+						<div class="gm-dot gm-min" onclick="minimizeGame()" title="Minimise"></div>
+						<div class="gm-dot gm-close" onclick="closeGame()" title="Close"></div>
+					</div>
+				</div>
+				<iframe id="gameFrame" src="about:blank" class="game-frame" title="CRM Type Rush"></iframe>
+			</div>
+		</div>
+
+		<!-- Minimised pill -->
+		<div class="game-minimised" id="gameMini" onclick="restoreGame()">
+			<i class="fas fa-gamepad"></i>
+			<span>CRM Type Rush</span>
+			<i class="fas fa-chevron-up" style="font-size: 0.65rem; opacity: 0.6"></i>
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 		<script>
 			// EmailJS init
 			emailjs.init("-XtlUdy1CRmtsw66r");
@@ -2313,10 +2632,15 @@
 
 			document.getElementById("year").textContent = new Date().getFullYear();
 
+			let _gameMaximised = false;
+			let _barHideTimer = null;
+
 			// Custom cursor
 			const cursor = document.getElementById("cursor");
 			const ring = document.getElementById("cursorRing");
 			document.addEventListener("mousemove", (e) => {
+				window._lastMouseX = e.clientX;
+				window._lastMouseY = e.clientY;
 				cursor.style.left = e.clientX + "px";
 				cursor.style.top = e.clientY + "px";
 				setTimeout(() => {
@@ -2324,7 +2648,7 @@
 					ring.style.top = e.clientY + "px";
 				}, 80);
 			});
-			document.querySelectorAll("a,button,.skill-card,.service-card,.project-card").forEach((el) => {
+			document.querySelectorAll("a,button,.skill-card,.service-card,.project-card,.play-game-fab,.fab-icon,.fab-ripple").forEach((el) => {
 				el.addEventListener("mouseenter", () => {
 					cursor.style.width = "16px";
 					cursor.style.height = "16px";
@@ -2532,6 +2856,139 @@
 					const errId = "err-" + id.replace("from_", "");
 					clearError(id, errId);
 				});
+			});
+
+			function openGame() {
+				const overlay = document.getElementById("game-modal-overlay");
+				const frame = document.getElementById("gameFrame");
+				// Always reload iframe on open so game resets fresh
+				frame.src = "game.html";
+				overlay.classList.add("open");
+				document.getElementById("gameMini").classList.remove("visible");
+				// Hide portfolio custom cursor while game is open
+				const cur = document.getElementById("cursor");
+				const ring = document.getElementById("cursorRing");
+				if (cur) cur.style.opacity = "0";
+				if (ring) ring.style.opacity = "0";
+				window._gameOpen = true;
+				// Show bar on open
+				showBar();
+			}
+
+			function closeGame() {
+				window._gameOpen = false;
+				// Reload iframe so next open starts fresh
+				const frame = document.getElementById("gameFrame");
+				frame.src = "about:blank";
+				document.getElementById("game-modal-overlay").classList.remove("open");
+				document.getElementById("gameMini").classList.remove("visible");
+				document.getElementById("gameModal").classList.remove("fullscreen");
+				_gameMaximised = false;
+				clearTimeout(_barHideTimer);
+				// Restore portfolio cursor fully
+				const cur = document.getElementById("cursor");
+				const ring = document.getElementById("cursorRing");
+				if (cur) {
+					cur.style.opacity = "1";
+					cur.style.left = (window._lastMouseX || window.innerWidth / 2) + "px";
+					cur.style.top = (window._lastMouseY || window.innerHeight / 2) + "px";
+				}
+				if (ring) {
+					ring.style.opacity = "1";
+					ring.style.left = (window._lastMouseX || window.innerWidth / 2) + "px";
+					ring.style.top = (window._lastMouseY || window.innerHeight / 2) + "px";
+				}
+			}
+
+			function minimizeGame() {
+				window._gameOpen = false;
+				document.getElementById("game-modal-overlay").classList.remove("open");
+				document.getElementById("gameMini").classList.add("visible");
+				clearTimeout(_barHideTimer);
+				// Restore portfolio cursor fully
+				const cur = document.getElementById("cursor");
+				const ring = document.getElementById("cursorRing");
+				if (cur) {
+					cur.style.opacity = "1";
+					cur.style.left = (window._lastMouseX || window.innerWidth / 2) + "px";
+					cur.style.top = (window._lastMouseY || window.innerHeight / 2) + "px";
+				}
+				if (ring) {
+					ring.style.opacity = "1";
+					ring.style.left = (window._lastMouseX || window.innerWidth / 2) + "px";
+					ring.style.top = (window._lastMouseY || window.innerHeight / 2) + "px";
+				}
+			}
+
+			function restoreGame() {
+				window._gameOpen = true;
+				document.getElementById("game-modal-overlay").classList.add("open");
+				document.getElementById("gameMini").classList.remove("visible");
+				// Hide portfolio cursor again when restored
+				const cur = document.getElementById("cursor");
+				const ring = document.getElementById("cursorRing");
+				if (cur) cur.style.opacity = "0";
+				if (ring) ring.style.opacity = "0";
+			}
+
+			function maximizeGame() {
+				_gameMaximised = !_gameMaximised;
+				document.getElementById("gameModal").classList.toggle("fullscreen", _gameMaximised);
+			}
+
+			// ── Title bar auto-hide ──────────────────────────────────────
+			// Bar visibility is driven by postMessage from inside the iframe
+			// (game.js tracks mouse Y and sends 'showBar'/'hideBar')
+			function showBar() {
+				clearTimeout(_barHideTimer);
+				document.getElementById("gameModal").classList.remove("bar-hidden");
+				// Only show cursor dot if game is actually open
+				if (!window._gameOpen) return;
+				const cur = document.getElementById("cursor");
+				const ring = document.getElementById("cursorRing");
+				if (cur) cur.style.opacity = "1";
+				if (ring) ring.style.opacity = "1";
+			}
+
+			function scheduleHideBar() {
+				clearTimeout(_barHideTimer);
+				// Only hide cursor if game is actually open — prevents stale messages after close
+				if (!window._gameOpen) return;
+				document.getElementById("gameModal").classList.add("bar-hidden");
+				const cur = document.getElementById("cursor");
+				const ring = document.getElementById("cursorRing");
+				if (cur) cur.style.opacity = "0";
+				if (ring) ring.style.opacity = "0";
+			}
+
+			// When cursor is on the actual title bar element in the parent, keep it visible
+			document.getElementById("gameModalBar").addEventListener("mouseenter", () => showBar());
+			document.getElementById("gameModalBar").addEventListener("mouseleave", () => scheduleHideBar());
+
+			// Messages from inside the iframe
+			window.addEventListener("message", (e) => {
+				if (e.data === "closeGame") closeGame();
+				else if (e.data === "showBar") showBar();
+				else if (e.data === "hideBar") scheduleHideBar();
+			});
+
+			// Click backdrop to minimise (not close)
+			document.getElementById("game-modal-overlay").addEventListener("click", function (e) {
+				if (e.target === this) minimizeGame();
+			});
+
+			// ESC to minimise
+			document.addEventListener("keydown", (e) => {
+				if (e.key === "Escape" && document.getElementById("game-modal-overlay").classList.contains("open")) {
+					minimizeGame();
+				}
+			});
+
+			// Listen for close message from inside the iframe (Back to Portfolio button)
+			window.addEventListener("message", (e) => {
+				if (e.data === "closeGame") closeGame();
+				else if (e.data === "showBar") showBar();
+				else if (e.data === "hideBar") scheduleHideBar();
 			});
 		</script>
 	</body>
