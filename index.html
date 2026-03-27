@@ -1114,15 +1114,148 @@
 				border-color: rgba(200, 149, 42, 0.38);
 				box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 			}
-			.project-header {
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-start;
-				margin-bottom: 1rem;
+
+			/* Project image container */
+			.project-image {
+				width: 100%;
+				height: 200px;
+				border-radius: 4px;
+				overflow: hidden;
+				margin-bottom: 1.8rem;
+				border: 1px solid var(--border);
+				background: var(--navy3);
+				position: relative;
 			}
-			.project-icon {
-				width: 46px;
-				height: 46px;
+
+			.project-image img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
+				transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+				filter: saturate(0.8) brightness(0.88);
+			}
+
+			/* Hover effects */
+			.project-card:hover .project-image img {
+				transform: scale(1.1);
+				filter: saturate(1) brightness(1);
+			}
+
+			/* Image overlay gradient */
+			.project-image::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(6, 16, 31, 0.3) 70%, rgba(6, 16, 31, 0.6) 100%);
+				pointer-events: none;
+				transition: opacity 0.4s ease;
+			}
+
+			.project-card:hover .project-image::after {
+				opacity: 0.7;
+			}
+
+			/* Shimmer loading effect */
+			.project-image::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(90deg, transparent 0%, rgba(200, 149, 42, 0.1) 50%, transparent 100%);
+				transform: translateX(-100%);
+				animation: shimmer 2s infinite;
+				pointer-events: none;
+			}
+
+			@keyframes shimmer {
+				0% {
+					transform: translateX(-100%);
+				}
+				100% {
+					transform: translateX(100%);
+				}
+			}
+
+			.project-card:hover .project-image::before {
+				animation: none;
+			}
+
+			/* View Project overlay */
+			.project-image-overlay {
+				position: absolute;
+				inset: 0;
+				background: rgba(6, 16, 31, 0.85);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				transition: opacity 0.4s ease;
+				pointer-events: none;
+				z-index: 2;
+			}
+
+			.project-card:hover .project-image-overlay {
+				opacity: 1;
+			}
+
+			.project-view-btn {
+				background: linear-gradient(135deg, var(--gold), var(--gold2));
+				color: var(--navy);
+				padding: 10px 24px;
+				border-radius: 4px;
+				font-weight: 700;
+				font-size: 0.85rem;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				transform: translateY(10px);
+				transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+			}
+
+			.project-card:hover .project-view-btn {
+				transform: translateY(0);
+			}
+
+			/* Badge positioned on image */
+			.project-badge {
+				position: absolute;
+				top: 12px;
+				right: 12px;
+				background: rgba(12, 26, 48, 0.92);
+				backdrop-filter: blur(10px);
+				border: 1px solid rgba(200, 149, 42, 0.35);
+				color: var(--gold2);
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				padding: 6px 12px;
+				border-radius: 4px;
+				z-index: 3;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+				transition: all 0.3s;
+			}
+
+			.project-card:hover .project-badge {
+				background: rgba(12, 26, 48, 0.95);
+				border-color: var(--gold);
+			}
+
+			/* ── ICON + PILL ROW ── */
+
+			.project-icon-meta-row {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin-bottom: 1.2rem;
+				flex-wrap: nowrap;
+			}
+
+			/* Icon — no zoom, no ring on hover */
+			.project-icon-wrap {
+				width: 44px;
+				height: 44px;
+				flex-shrink: 0;
 				border-radius: 8px;
 				background: var(--gold-pale);
 				border: 1px solid rgba(200, 149, 42, 0.25);
@@ -1131,29 +1264,90 @@
 				justify-content: center;
 				font-size: 1.1rem;
 				color: var(--gold2);
-				transition: all 0.3s;
+				transition:
+					background 0.3s,
+					color 0.3s;
+				position: relative;
 			}
-			.project-card:hover .project-icon {
+
+			/* Remove dotted ring */
+			.project-icon-wrap::before {
+				display: none;
+			}
+
+			/* Color shift only — no scale, no rotate */
+			.project-card:hover .project-icon-wrap {
 				background: linear-gradient(135deg, var(--gold), var(--gold2));
 				color: var(--navy);
+				transform: none;
 			}
-			.project-badge {
-				background: rgba(200, 149, 42, 0.1);
-				border: 1px solid rgba(200, 149, 42, 0.2);
-				color: var(--gold);
-				font-size: 0.68rem;
-				font-weight: 700;
-				letter-spacing: 1.5px;
-				text-transform: uppercase;
-				padding: 4px 10px;
-				border-radius: 3px;
+
+			/* Pills container */
+			.project-pills {
+				display: flex;
+				gap: 6px;
+				align-items: center;
+				flex-wrap: nowrap;
+				overflow: hidden;
 			}
+
+			.project-pill {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				background: rgba(200, 149, 42, 0.06);
+				border: 1px solid rgba(200, 149, 42, 0.18);
+				color: rgba(255, 255, 255, 0.55);
+				font-size: 0.7rem;
+				font-weight: 500;
+				letter-spacing: 0.3px;
+				padding: 5px 10px;
+				border-radius: 20px;
+				white-space: nowrap;
+				transition: all 0.3s;
+			}
+
+			.project-pill .pill-dot {
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				background: var(--gold);
+				flex-shrink: 0;
+				transition: background 0.3s;
+			}
+
+			.project-pill.pill-live .pill-dot {
+				background: #4ade80;
+			}
+
+			.project-pill.pill-live {
+				color: rgba(74, 222, 128, 0.8);
+				border-color: rgba(74, 222, 128, 0.2);
+				background: rgba(74, 222, 128, 0.05);
+			}
+
+			.project-card:hover .project-pill {
+				border-color: rgba(200, 149, 42, 0.3);
+				color: rgba(255, 255, 255, 0.7);
+			}
+
+			.project-card:hover .project-pill.pill-live {
+				border-color: rgba(74, 222, 128, 0.35);
+				color: rgba(74, 222, 128, 0.95);
+			}
+
+			/* Remove old meta bar styles */
+			.project-meta-bar {
+				display: none;
+			}
+
 			.project-name {
 				font-family: "Cormorant Garamond", serif;
 				font-size: 1.2rem;
 				font-weight: 700;
 				margin-bottom: 0.6rem;
 			}
+
 			.project-client {
 				color: var(--gold);
 				font-size: 0.76rem;
@@ -1162,6 +1356,7 @@
 				text-transform: uppercase;
 				margin-bottom: 0.8rem;
 			}
+
 			.project-desc {
 				color: var(--muted);
 				font-size: 0.86rem;
@@ -1169,11 +1364,13 @@
 				font-weight: 300;
 				margin-bottom: 1.2rem;
 			}
+
 			.project-tech {
 				display: flex;
 				flex-wrap: wrap;
 				gap: 6px;
 			}
+
 			.ptag {
 				background: var(--gold-pale);
 				border: 1px solid rgba(200, 149, 42, 0.15);
@@ -2336,11 +2533,30 @@
 			</div>
 
 			<div class="projects-grid">
+				<!-- Project 1: Sana Sana -->
 				<div class="project-card reveal">
-					<div class="project-header">
-						<div class="project-icon"><i class="fas fa-hospital"></i></div>
+					<div class="project-image">
+						<img src="projects/sana-sana.png" alt="Sana Sana Hospital Portal" loading="lazy" />
 						<span class="project-badge">Healthcare</span>
+						<div class="project-image-overlay">
+							<div class="project-view-btn">
+								<i class="fas fa-eye"></i>
+								View Details
+							</div>
+						</div>
 					</div>
+
+					<div class="project-icon-meta-row">
+						<div class="project-icon-wrap">
+							<i class="fas fa-hospital"></i>
+						</div>
+						<div class="project-pills">
+							<div class="project-pill"><span class="pill-dot"></span>Full-Stack</div>
+							<div class="project-pill"><span class="pill-dot"></span>2024</div>
+							<div class="project-pill pill-live"><span class="pill-dot"></span>Live</div>
+						</div>
+					</div>
+
 					<div class="project-name">Sana Sana</div>
 					<div class="project-client">Hospital Management Portal</div>
 					<p class="project-desc">
@@ -2348,15 +2564,40 @@
 						automated patient communications using SendGrid email templates.
 					</p>
 					<div class="project-tech">
-						<span class="ptag">Dynamics 365</span><span class="ptag">ASP.NET Web API</span><span class="ptag">Angular</span><span class="ptag">C#</span
-						><span class="ptag">TypeScript</span><span class="ptag">PowerTranz</span><span class="ptag">SendGrid</span>
+						<span class="ptag">Dynamics 365</span>
+						<span class="ptag">ASP.NET Web API</span>
+						<span class="ptag">Angular</span>
+						<span class="ptag">C#</span>
+						<span class="ptag">TypeScript</span>
+						<span class="ptag">PowerTranz</span>
+						<span class="ptag">SendGrid</span>
 					</div>
 				</div>
+
+				<!-- Project 2: AutoMercado -->
 				<div class="project-card reveal" style="transition-delay: 0.08s">
-					<div class="project-header">
-						<div class="project-icon"><i class="fa fa-shopping-cart"></i></div>
+					<div class="project-image">
+						<img src="projects/automercado.png" alt="AutoMercado Supplier Portal" loading="lazy" />
 						<span class="project-badge">E-commerce</span>
+						<div class="project-image-overlay">
+							<div class="project-view-btn">
+								<i class="fas fa-eye"></i>
+								View Details
+							</div>
+						</div>
 					</div>
+
+					<div class="project-icon-meta-row">
+						<div class="project-icon-wrap">
+							<i class="fa fa-shopping-cart"></i>
+						</div>
+						<div class="project-pills">
+							<div class="project-pill"><span class="pill-dot"></span>CRM Portal</div>
+							<div class="project-pill"><span class="pill-dot"></span>2023</div>
+							<div class="project-pill pill-live"><span class="pill-dot"></span>Live</div>
+						</div>
+					</div>
+
 					<div class="project-name">AutoMercado</div>
 					<div class="project-client">Vendor / Supplier Portal</div>
 					<p class="project-desc">
@@ -2364,15 +2605,40 @@
 						via ribbon button using Power Automate and the CRM Web API.
 					</p>
 					<div class="project-tech">
-						<span class="ptag">Dynamics 365</span><span class="ptag">SharePoint</span><span class="ptag">ASP.NET MVC</span><span class="ptag">C#</span
-						><span class="ptag">AngularJS</span><span class="ptag">Power Automate</span><span class="ptag">SSRS</span>
+						<span class="ptag">Dynamics 365</span>
+						<span class="ptag">SharePoint</span>
+						<span class="ptag">ASP.NET MVC</span>
+						<span class="ptag">C#</span>
+						<span class="ptag">AngularJS</span>
+						<span class="ptag">Power Automate</span>
+						<span class="ptag">SSRS</span>
 					</div>
 				</div>
+
+				<!-- Project 3: OMAC / Gamma -->
 				<div class="project-card reveal" style="transition-delay: 0.16s">
-					<div class="project-header">
-						<div class="project-icon"><i class="fas fa-file-alt"></i></div>
+					<div class="project-image">
+						<img src="projects/omac.png" alt="OMAC Document Library" loading="lazy" />
 						<span class="project-badge">DOC Library</span>
+						<div class="project-image-overlay">
+							<div class="project-view-btn">
+								<i class="fas fa-eye"></i>
+								View Details
+							</div>
+						</div>
 					</div>
+
+					<div class="project-icon-meta-row">
+						<div class="project-icon-wrap">
+							<i class="fas fa-file-alt"></i>
+						</div>
+						<div class="project-pills">
+							<div class="project-pill"><span class="pill-dot"></span>Dynamics</div>
+							<div class="project-pill"><span class="pill-dot"></span>2023</div>
+							<div class="project-pill pill-live"><span class="pill-dot"></span>Live</div>
+						</div>
+					</div>
+
 					<div class="project-name">OMAC / Gamma</div>
 					<div class="project-client">Document Library System</div>
 					<p class="project-desc">
@@ -2380,15 +2646,38 @@
 						scheduled monthly cloud flows for document processing.
 					</p>
 					<div class="project-tech">
-						<span class="ptag">Dynamics 365</span><span class="ptag">Power Automate</span><span class="ptag">C# Plugins</span><span class="ptag">JavaScript</span
-						><span class="ptag">Power BI Report Builder</span>
+						<span class="ptag">Dynamics 365</span>
+						<span class="ptag">Power Automate</span>
+						<span class="ptag">C# Plugins</span>
+						<span class="ptag">JavaScript</span>
+						<span class="ptag">Power BI Report Builder</span>
 					</div>
 				</div>
+
+				<!-- Project 4: Lana Partners -->
 				<div class="project-card reveal">
-					<div class="project-header">
-						<div class="project-icon"><i class="fas fa-hospital"></i></div>
+					<div class="project-image">
+						<img src="projects/lana-partners.jpg" alt="Lana Partners CRM" loading="lazy" />
 						<span class="project-badge">Healthcare</span>
+						<div class="project-image-overlay">
+							<div class="project-view-btn">
+								<i class="fas fa-eye"></i>
+								View Details
+							</div>
+						</div>
 					</div>
+
+					<div class="project-icon-meta-row">
+						<div class="project-icon-wrap">
+							<i class="fas fa-hospital"></i>
+						</div>
+						<div class="project-pills">
+							<div class="project-pill"><span class="pill-dot"></span>Power Apps</div>
+							<div class="project-pill"><span class="pill-dot"></span>2024</div>
+							<div class="project-pill pill-live"><span class="pill-dot"></span>Live</div>
+						</div>
+					</div>
+
 					<div class="project-name">Lana Partners</div>
 					<div class="project-client">Hospital Management CRM</div>
 					<p class="project-desc">
@@ -2396,15 +2685,38 @@
 						JavaScript web resources for extended CRM functionality.
 					</p>
 					<div class="project-tech">
-						<span class="ptag">Dynamics 365</span><span class="ptag">Power Apps</span><span class="ptag">Power Automate</span><span class="ptag">JavaScript</span
-						><span class="ptag">Business Rules</span>
+						<span class="ptag">Dynamics 365</span>
+						<span class="ptag">Power Apps</span>
+						<span class="ptag">Power Automate</span>
+						<span class="ptag">JavaScript</span>
+						<span class="ptag">Business Rules</span>
 					</div>
 				</div>
+
+				<!-- Project 5: Mimojo -->
 				<div class="project-card reveal" style="transition-delay: 0.08s">
-					<div class="project-header">
-						<div class="project-icon"><i class="fas fa-chart-line"></i></div>
+					<div class="project-image">
+						<img src="projects/mimojo.png" alt="Mimojo Sales Pipeline" loading="lazy" />
 						<span class="project-badge">Sales</span>
+						<div class="project-image-overlay">
+							<div class="project-view-btn">
+								<i class="fas fa-eye"></i>
+								View Details
+							</div>
+						</div>
 					</div>
+
+					<div class="project-icon-meta-row">
+						<div class="project-icon-wrap">
+							<i class="fas fa-chart-line"></i>
+						</div>
+						<div class="project-pills">
+							<div class="project-pill"><span class="pill-dot"></span>Analytics</div>
+							<div class="project-pill"><span class="pill-dot"></span>2024</div>
+							<div class="project-pill pill-live"><span class="pill-dot"></span>Live</div>
+						</div>
+					</div>
+
 					<div class="project-name">Mimojo</div>
 					<div class="project-client">Sales Pipeline Optimization</div>
 					<p class="project-desc">
@@ -2412,15 +2724,38 @@
 						live visibility into sales performance and conversion rates.
 					</p>
 					<div class="project-tech">
-						<span class="ptag">Dynamics 365</span><span class="ptag">Business Process Flows</span><span class="ptag">Dashboards</span><span class="ptag">Workflows</span
-						><span class="ptag">Power Automate</span>
+						<span class="ptag">Dynamics 365</span>
+						<span class="ptag">Business Process Flows</span>
+						<span class="ptag">Dashboards</span>
+						<span class="ptag">Workflows</span>
+						<span class="ptag">Power Automate</span>
 					</div>
 				</div>
+
+				<!-- Project 6: Bobswatches -->
 				<div class="project-card reveal" style="transition-delay: 0.16s">
-					<div class="project-header">
-						<div class="project-icon"><i class="fas fa-clock"></i></div>
+					<div class="project-image">
+						<img src="projects/bobswatches.jpg" alt="Bobswatches Retail CRM" loading="lazy" />
 						<span class="project-badge">Retail</span>
+						<div class="project-image-overlay">
+							<div class="project-view-btn">
+								<i class="fas fa-eye"></i>
+								View Details
+							</div>
+						</div>
 					</div>
+
+					<div class="project-icon-meta-row">
+						<div class="project-icon-wrap">
+							<i class="fas fa-clock"></i>
+						</div>
+						<div class="project-pills">
+							<div class="project-pill"><span class="pill-dot"></span>Integration</div>
+							<div class="project-pill"><span class="pill-dot"></span>2023</div>
+							<div class="project-pill pill-live"><span class="pill-dot"></span>Live</div>
+						</div>
+					</div>
+
 					<div class="project-name">Bobswatches</div>
 					<div class="project-client">Retail CRM & Integration</div>
 					<p class="project-desc">
@@ -2428,8 +2763,11 @@
 						JavaScript web resources to extend core CRM functionality.
 					</p>
 					<div class="project-tech">
-						<span class="ptag">Dynamics 365</span><span class="ptag">C#</span><span class="ptag">Web API</span><span class="ptag">JavaScript</span
-						><span class="ptag">SQL Server</span>
+						<span class="ptag">Dynamics 365</span>
+						<span class="ptag">C#</span>
+						<span class="ptag">Web API</span>
+						<span class="ptag">JavaScript</span>
+						<span class="ptag">SQL Server</span>
 					</div>
 				</div>
 			</div>
